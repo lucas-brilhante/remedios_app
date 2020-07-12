@@ -34,7 +34,6 @@ namespace MedicamentosApi.Controllers
             });
 
             return userList;
-            //return await _context.Users.ToListAsync();
         }
 
         // GET: api/Users/5
@@ -88,39 +87,39 @@ namespace MedicamentosApi.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> PostUser(UserDTO userDto)
+        public async Task<ActionResult<UserDTO>> PostUser(UserDTO userDTO)
         {
 
             User user = new User();
 
-            user.Login = userDto.Login;
-            user.Name = userDto.Name;
-            user.LastName = userDto.LastName;
-            user.BirthDate = userDto.BirthDate;
-            user.Cpf = userDto.Cpf;
-            user.IsActive = userDto.IsActive;
+            user.Login = userDTO.Login;
+            user.Name = userDTO.Name;
+            user.LastName = userDTO.LastName;
+            user.BirthDate = userDTO.BirthDate;
+            user.Cpf = userDTO.Cpf;
+            user.IsActive = userDTO.IsActive;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            if (userDto.Token != null)
+            if (userDTO.Token != null)
             {
                 Admin admin = new Admin();
-                admin.Token = userDto.Token;
-                admin.RegistrationNumber = userDto.RegistrationNumber;
+                admin.Token = userDTO.Token;
+                admin.RegistrationNumber = userDTO.RegistrationNumber;
                 admin.UserId = user.Id;
                 _context.Admins.Add(admin);
             }
-            else if (userDto.CrmNumber != null)
+            else if (userDTO.CrmNumber != null)
             {
                 Doctor doctor = new Doctor();
-                doctor.CrmNumber = userDto.CrmNumber;
+                doctor.CrmNumber = userDTO.CrmNumber;
                 doctor.UserId = user.Id;
                 _context.Doctors.Add(doctor);
             }
 
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUser), new { login = user.Login }, user);
+            return CreatedAtAction(nameof(GetUser), new { login = user.Login }, userDTO);
         }
 
         // DELETE: api/Users/5

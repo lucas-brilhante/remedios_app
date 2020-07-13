@@ -40,8 +40,7 @@ namespace MedicamentosApi.Controllers
         [HttpGet("{login}")]
         public async Task<ActionResult<UserDTO>> GetUser(string login)
         {
-            //var user = await _context.Users.FindAsync(id);
-            var user = _context.Users.SingleOrDefault(user => user.Login == login);
+            var user = await _context.Users.SingleOrDefaultAsync(user => user.Login == login);
 
             if (user == null)
                 return NotFound();
@@ -142,6 +141,15 @@ namespace MedicamentosApi.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+
+        private bool isValid(UserDTO userDTO)
+        {
+            var checkCpf = _context.Users.Any(user => user.Cpf == userDTO.Cpf);
+            if (checkCpf)
+                return true;
+
+            return false;
+        }
         private UserDTO getUserInfo(User user)
         {
             var adminInfo = _context.Admins.SingleOrDefault(admin => admin.UserId == user.Id);
@@ -170,13 +178,6 @@ namespace MedicamentosApi.Controllers
             else
                 userDTO.accountType = "patient";
 
-            return userDTO;
-        }
-
-        private UserDTO teste(User user)
-        {
-            UserDTO userDTO = new UserDTO();
-            userDTO.Login = user.Login;
             return userDTO;
         }
     }

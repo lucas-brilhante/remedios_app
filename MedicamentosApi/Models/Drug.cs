@@ -25,5 +25,4 @@ public class Drug
 
     [Required]
     public long CategoryId { get; set; }
-    public Category Category { get; set; }
 }

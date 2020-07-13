@@ -118,7 +118,7 @@ namespace MedicamentosApi.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUser), new { login = user.Login }, userDTO);
+            return CreatedAtAction(nameof(GetUser), new { login = user.Login }, getUserInfo(user));
         }
 
         // DELETE: api/Users/5

@@ -14,5 +14,6 @@ namespace MedicamentosApi.Data
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Drug> Drugs { get; set; }
+        public DbSet<MedicalPrescription> MedicalPrescriptions { get; set; }
     }
 }

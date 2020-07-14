@@ -47,7 +47,7 @@ const Authentication = () => {
   return (
     <Container>
       <KeyboardAvoiding>
-        <Content>
+        <Form>
           <Logo>Remédios</Logo>
           <Title>Login</Title>
           <Label>Usuário</Label>
@@ -74,7 +74,7 @@ const Authentication = () => {
               <AcessLinkText>Clique Aqui!</AcessLinkText>
             </TouchableOpacity>
           </LinkContainer>
-        </Content>
+        </Form>
       </KeyboardAvoiding>
     </Container>
   );
@@ -91,7 +91,7 @@ const KeyboardAvoiding = styled(KeyboardAwareScrollView).attrs({
   enableOnAndroid: true,
 })``;
 
-const Content = styled(View)`
+const Form = styled(View)`
   padding: 24px;
 `;
 

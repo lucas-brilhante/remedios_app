@@ -3,7 +3,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Authentication from "./src/pages/Authentication";
-import CreateNewUser from "./src/pages/CreateNewUser";
+import CreateNewUser from "./src/pages/UserForm";
 import Home from "./src/pages/Home";
 import { Provider } from "react-redux";
 import store from "./src/store/store";
@@ -16,6 +16,11 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Authentication"
             component={Authentication}
             options={{ headerShown: false }}
@@ -24,11 +29,6 @@ const App = () => {
             name="Create User"
             component={CreateNewUser}
             options={{ title: "Criar conta" }}
-          />
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

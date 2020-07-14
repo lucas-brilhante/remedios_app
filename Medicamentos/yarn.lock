@@ -5258,6 +5258,14 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
+prop-types@15.6.2:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
+  integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
+  dependencies:
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
 prop-types@15.7.2, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
@@ -5422,6 +5430,13 @@ react-native-screens@~2.9.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.9.0.tgz#ead2843107ba00fee259aa377582e457c74f1f3b"
   integrity sha512-5MaiUD6HA3nzY3JbVI8l3V7pKedtxQF3d8qktTVI0WmWXTI4QzqOU8r8fPVvfKo3MhOXwhWBjr+kQ7DZaIQQeg==
+
+react-native-side-drawer@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/react-native-side-drawer/-/react-native-side-drawer-1.2.6.tgz#bb34282ca0db0c21ce238435532fd9a9580ede0a"
+  integrity sha512-ZVMaCNvZ5YA3lyyoKlvByDvM2641trA9b/Fbp5vUOscjoYZRpAM4lGH6wq0QvfUB8nIqeJnkNVJokvjT4m5SRw==
+  dependencies:
+    prop-types "15.6.2"
 
 react-native-web@~0.11.7:
   version "0.11.7"

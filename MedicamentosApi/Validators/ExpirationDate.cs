@@ -1,10 +1,12 @@
-/*using System.ComponentModel.DataAnnotations.ValidationAttribute
-public class ExpirationDate : ValidationAttribute
+using System.ComponentModel.DataAnnotations;
+using System;
+
+public class ExpirationDateAttribute : ValidationAttribute
 {
-    public override bool IsValid(object value)// Return a boolean value: true == IsValid, false != IsValid
+    public override bool IsValid(object value)
     {
         DateTime d = Convert.ToDateTime(value);
-        return d >= DateTime.Now; //Dates Greater than or equal to today are valid (true)
+        return d >= DateTime.Now;
 
     }
-}*/
+}

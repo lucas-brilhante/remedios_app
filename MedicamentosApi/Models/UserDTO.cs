@@ -6,23 +6,23 @@ public class UserDTO
     [Key]
     public long Id { get; set; }
 
-    [Required(ErrorMessage = "Login inválido")]
+    [Required(ErrorMessage = "Login inválido.")]
     public string Login { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Nome inválido.")]
     public string Name { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Sobrenome inválido.")]
     public string LastName { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Data de nascimento inválida.")]
     [DataType(DataType.Date)]
     [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
     public DateTime BirthDate { get; set; }
 
-    [Required]
-    [MinLength(11, ErrorMessage = "Cpf inválido")]
-    [MaxLength(11, ErrorMessage = "Cpf inválido")]
+    [Required(ErrorMessage = "Cpf inválido")]
+    [MinLength(14, ErrorMessage = "Cpf inválido.")]
+    [MaxLength(14, ErrorMessage = "Cpf inválido.")]
     public string Cpf { get; set; }
 
     [Required]

@@ -2,33 +2,42 @@ import React, { useState } from "react";
 import {
   Text,
   View,
-  ScrollView,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
   SafeAreaView,
 } from "react-native";
 import firebaseAuth from "../services/firebaseAuth";
+import remediosApi from "../services/remediosApi";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/modules/user";
 
 const Authentication = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const signIn = () => {
+  const signIn = async () => {
     setError("");
-    firebaseAuth
-      .signInWithEmailAndPassword(login, password)
-      .then((response) => {
-        navigation.navigate("Home", { login: response.user.email });
-      })
-      .catch((error) => {
-        setError("Usuário ou Senha inválido.");
-      });
+    try {
+      const firebaseResponse = await firebaseAuth.signInWithEmailAndPassword(
+        login,
+        password
+      );
+      try {
+        const apiResponse = await remediosApi.get(`users/${login}`);
+        dispatch(setUser(apiResponse.data));
+        navigation.navigate("Home");
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      setError("Usuário ou Senha inválido.");
+    }
   };
 
   const move = () => {
@@ -55,10 +64,10 @@ const Authentication = () => {
             autoCapitalize="none"
             textContentType="password"
           />
+          <ErrorMessage>{error}</ErrorMessage>
           <Button onPress={signIn}>
             <ButtonText>Entrar</ButtonText>
           </Button>
-          <ErrorMessage>{error}</ErrorMessage>
           <LinkContainer>
             <LinkText>{"Não tem cadastro? "}</LinkText>
             <TouchableOpacity onPress={move}>

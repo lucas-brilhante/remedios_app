@@ -4,6 +4,7 @@ public class Category
     [Key]
     public long Id { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Nome inválido.")]
+    [CheckTitle(ErrorMessage = "Categoria já cadastrada.")]
     public string Title { get; set; }
 }

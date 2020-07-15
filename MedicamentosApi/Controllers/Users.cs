@@ -86,33 +86,33 @@ namespace MedicamentosApi.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> PostUser(UserDTO userDTO)
+        public async Task<ActionResult<UserDTO>> PostUser(UserForm userForm)
         {
 
             User user = new User();
 
-            user.Login = userDTO.Login;
-            user.Name = userDTO.Name;
-            user.LastName = userDTO.LastName;
-            user.BirthDate = userDTO.BirthDate;
-            user.Cpf = userDTO.Cpf;
-            user.IsActive = userDTO.IsActive;
+            user.Login = userForm.Login;
+            user.Name = userForm.Name;
+            user.LastName = userForm.LastName;
+            user.BirthDate = userForm.BirthDate;
+            user.Cpf = userForm.Cpf;
+            user.IsActive = userForm.IsActive;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            if (userDTO.Token != null)
+            if (userForm.Token != null)
             {
                 Admin admin = new Admin();
-                admin.Token = userDTO.Token;
-                admin.RegistrationNumber = userDTO.RegistrationNumber;
+                admin.Token = userForm.Token;
+                admin.RegistrationNumber = userForm.RegistrationNumber;
                 admin.UserId = user.Id;
                 _context.Admins.Add(admin);
             }
-            else if (userDTO.CrmNumber != null)
+            else if (userForm.CrmNumber != null)
             {
                 Doctor doctor = new Doctor();
-                doctor.CrmNumber = userDTO.CrmNumber;
+                doctor.CrmNumber = userForm.CrmNumber;
                 doctor.UserId = user.Id;
                 _context.Doctors.Add(doctor);
             }

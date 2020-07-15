@@ -7,9 +7,10 @@ public class Drug
     [Key]
     public long Id { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Nome inválido.")]
     [MinLength(5, ErrorMessage = "O nome deve ter no mínimo 5 caracteres.")]
     [MaxLength(30, ErrorMessage = "O nome deve ter no máximo 30 caracteres.")]
+    [CheckDrugName(ErrorMessage = "O nome do remédio já está em uso.")]
     public string Name { get; set; }
 
     [Required]

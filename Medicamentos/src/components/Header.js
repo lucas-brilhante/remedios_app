@@ -12,15 +12,19 @@ const Header = ({ color, handleSideDrawer }) => {
         <MenuButton onPress={() => handleSideDrawer(true)}>
           <Feather name="menu" size={32} color="black" />
         </MenuButton>
-        <Logo>Remédios</Logo>
-        <WelcomeText>Olá, {user?.name}.</WelcomeText>
+        <MenuContainer>
+          <Logo>Remédios</Logo>
+        </MenuContainer>
+        <MenuContainer>
+          <WelcomeText>Olá, {user.name}.</WelcomeText>
+        </MenuContainer>
       </Content>
     </Container>
   );
 };
 
 const Container = styled(View)`
-  height: 50px;
+  height: 56px;
   background-color: ${({ color }) => (color ? color : "black")};
   border-bottom-width: ${3 * StyleSheet.hairlineWidth}px;
   border-color: #000;
@@ -32,12 +36,15 @@ const Content = styled(View)`
   align-items: center;
   padding: 16px;
 `;
-
-const Logo = styled(Text)`
+const MenuContainer = styled(View)`
   flex: 1;
-  font-size: 20px;
+`;
+const Logo = styled(Text)`
+  font-size: 35px;
   color: blue;
   text-align: center;
+  font-family: "Bangers";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 `;
 
 const MenuButton = styled(TouchableOpacity)`
@@ -45,7 +52,6 @@ const MenuButton = styled(TouchableOpacity)`
 `;
 
 const WelcomeText = styled(Text)`
-  flex: 1;
   text-align: right;
 `;
 

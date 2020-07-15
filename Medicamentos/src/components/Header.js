@@ -9,22 +9,25 @@ const Header = ({ color, handleSideDrawer }) => {
   return (
     <Container color={color}>
       <Content>
-        <MenuButton onPress={() => handleSideDrawer(true)}>
+        <MenuButton onPress={() => handleSideDrawer((state) => !state)}>
           <Feather name="menu" size={32} color="black" />
         </MenuButton>
         <MenuContainer>
           <Logo>Remédios</Logo>
         </MenuContainer>
-        <MenuContainer>
-          <WelcomeText>Olá, {user.name}.</WelcomeText>
-        </MenuContainer>
+        <WelcomeContainer>
+          <View>
+            <Text style={{ paddingRight: 16 }}>Olá,</Text>
+            <Text>{user.name}.</Text>
+          </View>
+        </WelcomeContainer>
       </Content>
     </Container>
   );
 };
 
 const Container = styled(View)`
-  height: 56px;
+  height: 80px;
   background-color: ${({ color }) => (color ? color : "black")};
   border-bottom-width: ${3 * StyleSheet.hairlineWidth}px;
   border-color: #000;
@@ -33,15 +36,15 @@ const Container = styled(View)`
 const Content = styled(View)`
   flex: 1;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   padding: 16px;
 `;
 const MenuContainer = styled(View)`
-  flex: 1;
+  flex: 2;
 `;
 const Logo = styled(Text)`
   font-size: 35px;
-  color: blue;
+  color: green;
   text-align: center;
   font-family: "Bangers";
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -50,9 +53,9 @@ const Logo = styled(Text)`
 const MenuButton = styled(TouchableOpacity)`
   flex: 1;
 `;
-
-const WelcomeText = styled(Text)`
-  text-align: right;
+const WelcomeContainer = styled(View)`
+  flex: 1;
+  align-items: flex-end;
 `;
 
 export default Header;

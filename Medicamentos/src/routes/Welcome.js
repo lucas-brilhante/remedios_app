@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Welcome = () => {
   return (
     <Container>
-      <WelcomeText>Seja Bem-vindo! =)</WelcomeText>
+      <WelcomeText>Seja Bem-vindo!</WelcomeText>
     </Container>
   );
 };

@@ -15,7 +15,7 @@ const initialState = {
   registrationNumber: null,
   token: null,
   crmNumber: null,
-  accountType: "patient",
+  accountType: "admin",
 };
 
 export default createReducer(initialState, {

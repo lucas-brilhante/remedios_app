@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import styled from "styled-components";
 import { Feather, FontAwesome } from "@expo/vector-icons";
-import { routes } from "../components/RoutesNavigator";
+import { routes } from "../routes";
 
 const Menu = ({ handleSideDrawer, handleRoute }) => {
   return (

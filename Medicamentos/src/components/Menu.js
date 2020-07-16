@@ -109,6 +109,25 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
           </SubMenuItem>
         </TouchableOpacity>
       </MenuItem>
+      <MenuItem>
+        <MenuTitleGroup>
+          <FontAwesome name="star" size={20} color="orange" />
+          <MenuTitle>Usuários</MenuTitle>
+        </MenuTitleGroup>
+        <TouchableOpacity
+          onPress={() => {
+            handleRoute(routes.listUsers);
+          }}
+        >
+          <SubMenuItem>
+            <SubMenuTitleGroup>
+              <Feather name="search" size={20} color="blue" />
+              <SubItemTitle>Listar</SubItemTitle>
+            </SubMenuTitleGroup>
+            <Feather name="arrow-right" size={20} color="black" />
+          </SubMenuItem>
+        </TouchableOpacity>
+      </MenuItem>
     </Container>
   );
 };

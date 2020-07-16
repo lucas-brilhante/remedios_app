@@ -6,6 +6,7 @@ import DrugForm from "../routes/DrugForm";
 import DrugsList from "../routes/DrugsList";
 import MedicalPrescriptionForm from "../routes/MedicalPrescriptionForm";
 import MedicalPrescriptionsList from "../routes/MedicalPrescriptionsList";
+import UsersList from "../routes/UsersList";
 import { routes } from "../routes";
 
 const RoutesNavigator = ({ route, handleRoute, routeProps }) => {
@@ -27,6 +28,8 @@ const RoutesNavigator = ({ route, handleRoute, routeProps }) => {
       );
     case routes.listMedicalPrescriptions:
       return <MedicalPrescriptionsList handleRoute={handleRoute} />;
+    case routes.listUsers:
+      return <UsersList handleRoute={handleRoute} />;
     default:
       return <Welcome />;
   }

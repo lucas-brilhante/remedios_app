@@ -6,4 +6,5 @@ export const routes = {
   listDrugs: 4,
   addMedicalPrescription: 5,
   listMedicalPrescriptions: 6,
+  listUsers: 7,
 };

@@ -55,12 +55,20 @@ namespace MedicamentosApi.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDrug(long id, Drug drug)
+        public async Task<IActionResult> PutDrug(long id, DrugPut drugPut)
         {
-            if (id != drug.Id)
+            if (id != drugPut.Id)
             {
                 return BadRequest();
             }
+
+            Drug drug = new Drug();
+
+            drug.Id = drugPut.Id;
+            drug.Name = drugPut.Name;
+            drug.Price = drugPut.Price;
+            drug.ExpirationDate = drugPut.ExpirationDate;
+            drug.CategoryId = drugPut.CategoryId;
 
             _context.Entry(drug).State = EntityState.Modified;
 

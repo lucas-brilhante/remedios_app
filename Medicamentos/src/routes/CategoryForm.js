@@ -4,12 +4,14 @@ import remediosApi from "../services/remediosApi";
 import {
   Container,
   Form,
+  Content,
   Title,
   Label,
   Input,
   Button,
   ButtonText,
   ErrorMessage,
+  KeyboardAvoiding,
 } from "../components/Form";
 import { routes } from "../routes";
 
@@ -73,23 +75,25 @@ const CategoryForm = ({ handleRoute, routeProps: category = null }) => {
   };
 
   return (
-    <Container>
-      <Form>
-        <Title>{category ? "Editar" : "Cadastrar"} Categoria</Title>
-        <Label>Nome da Categoria</Label>
-        <Input value={categoryTitle} onChangeText={setCategoryTitle} />
-        <ErrorMessage>{error}</ErrorMessage>
-        {isFetching ? (
-          <Button>
-            <ActivityIndicator size="small" color="#0000ff" />
-          </Button>
-        ) : (
-          <Button onPress={category ? updateCategory : createCategory}>
-            <ButtonText>{category ? "Editar" : "Cadastrar"}</ButtonText>
-          </Button>
-        )}
-      </Form>
-    </Container>
+    <KeyboardAvoiding>
+      <Container>
+        <Form>
+          <Title>{category ? "Editar" : "Cadastrar"} Categoria</Title>
+          <Label>Nome da Categoria</Label>
+          <Input value={categoryTitle} onChangeText={setCategoryTitle} />
+          <ErrorMessage>{error}</ErrorMessage>
+          {isFetching ? (
+            <Button>
+              <ActivityIndicator size="small" color="#0000ff" />
+            </Button>
+          ) : (
+            <Button onPress={category ? updateCategory : createCategory}>
+              <ButtonText>{category ? "Editar" : "Cadastrar"}</ButtonText>
+            </Button>
+          )}
+        </Form>
+      </Container>
+    </KeyboardAvoiding>
   );
 };
 

@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class Drug
+public class DrugPut
 {
     [Key]
     public long Id { get; set; }
@@ -10,7 +10,6 @@ public class Drug
     [Required(ErrorMessage = "Nome inválido.")]
     [MinLength(5, ErrorMessage = "O nome deve ter no mínimo 5 caracteres.")]
     [MaxLength(30, ErrorMessage = "O nome deve ter no máximo 30 caracteres.")]
-    [CheckDrugName(ErrorMessage = "O nome do remédio já está em uso.")]
     public string Name { get; set; }
 
     [Required]

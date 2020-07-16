@@ -1,1 +1,1 @@
-export default (text) => text.replace(/\d/g, "");
+export default (text) => text.replace(/\D/g, "");

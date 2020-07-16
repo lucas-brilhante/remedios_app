@@ -43,12 +43,16 @@ namespace MedicamentosApi.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(long id, Category category)
+        public async Task<IActionResult> PutCategory(long id, CategoryPut categoryPut)
         {
-            if (id != category.Id)
+            if (id != categoryPut.Id)
             {
                 return BadRequest();
             }
+
+            Category category = new Category();
+            category.Id = categoryPut.Id;
+            category.Title = categoryPut.Title;
 
             _context.Entry(category).State = EntityState.Modified;
 

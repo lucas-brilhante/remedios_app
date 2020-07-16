@@ -24,7 +24,7 @@ import {
   Title,
   SearchBar,
   SearchInput,
-  CategoriesGrid,
+  ItemsGrid,
   DeleteButton,
   EditButton,
 } from "../components/ListView";
@@ -122,7 +122,7 @@ const CategoriesList = ({ handleRoute }) => {
               onChangeText={searchCategory}
             />
           </SearchBar>
-          <CategoriesGrid>
+          <ItemsGrid>
             {filteredCategories.map((category) => (
               <TouchableOpacity key={category.id}>
                 <Category>
@@ -141,7 +141,7 @@ const CategoriesList = ({ handleRoute }) => {
                 </Category>
               </TouchableOpacity>
             ))}
-          </CategoriesGrid>
+          </ItemsGrid>
         </List>
       )}
     </Container>

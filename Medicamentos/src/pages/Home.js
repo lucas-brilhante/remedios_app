@@ -25,37 +25,36 @@ const Home = () => {
   };
 
   return (
-    <>
-      <Container>
-        <StatusBar backgroundColor={"#ddd"} />
-        <MenuDrawer
-          open={showSideDrawer}
-          drawerContent={
-            <Menu
-              handleSideDrawer={handleSideDrawer}
-              handleRoute={handleRoute}
-            />
-          }
-          drawerPercentage={85}
-          animationTime={250}
-          overlay={true}
-          opacity={0.5}
-        >
-          <Header color={"#ddd"} handleSideDrawer={handleSideDrawer} />
-          <RoutesNavigator
-            route={route}
-            handleRoute={handleRoute}
-            routeProps={routeProps}
-          />
-        </MenuDrawer>
-      </Container>
-    </>
+    <Container>
+      <StatusBar backgroundColor="#d5d5d5" />
+      <MenuDrawer
+        open={showSideDrawer}
+        drawerContent={
+          <Menu handleSideDrawer={handleSideDrawer} handleRoute={handleRoute} />
+        }
+        drawerPercentage={85}
+        animationTime={250}
+        overlay={true}
+        opacity={0.5}
+      >
+        <Header
+          color={"#d5d5d5"}
+          handleRoute={handleRoute}
+          handleSideDrawer={handleSideDrawer}
+        />
+        <RoutesNavigator
+          route={route}
+          handleRoute={handleRoute}
+          routeProps={routeProps}
+        />
+      </MenuDrawer>
+    </Container>
   );
 };
 
 const Container = styled(SafeAreaView)`
   flex: 1;
-  background-color: #d0d0d0;
+  background-color: #d5d5d5;
 `;
 
 export default Home;

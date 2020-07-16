@@ -1,13 +1,25 @@
-import { Text, View, TextInput, TouchableOpacity } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import styled from "styled-components";
+import { TextInputMask } from "react-native-masked-text";
 
-export const Container = styled(KeyboardAwareScrollView).attrs({
-  extraHeight: 220,
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+export const KeyboardAvoiding = styled(KeyboardAwareScrollView).attrs({
+  extraScrollHeight: 200,
   enableAutomaticScroll: true,
   enableOnAndroid: true,
-})`
+})``;
+
+export const Container = styled(View)`
   flex: 1;
+  background-color: #d5d5d5;
 `;
 
 export const Form = styled(View)`
@@ -38,6 +50,28 @@ export const Input = styled(TextInput)`
   background-color: #f1f1f1;
 `;
 
+export const MaskedInput = styled(TextInputMask)`
+  width: 100%;
+  height: 40px;
+  border-width: 1px;
+  border-color: #777;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  background-color: #f1f1f1;
+`;
+
+export const PickerView = styled(View)`
+  width: 100%;
+  height: 40px;
+  border-width: 1px;
+  border-color: #777;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  background-color: #f1f1f1;
+`;
+
 export const Button = styled(TouchableOpacity)`
   background-color: yellow;
   padding: 8px;
@@ -48,6 +82,17 @@ export const Button = styled(TouchableOpacity)`
   height: 48px;
   justify-content: center;
   margin-top: 16px;
+`;
+
+export const ButtonAsInput = styled(View)`
+  width: 100%;
+  height: 40px;
+  border-width: 1px;
+  border-color: #777;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  background-color: #f1f1f1;
 `;
 
 export const ButtonText = styled(Text)`

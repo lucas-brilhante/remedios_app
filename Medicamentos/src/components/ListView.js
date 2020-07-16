@@ -11,6 +11,7 @@ import { Feather } from "@expo/vector-icons";
 
 export const Container = styled(View)`
   flex: 1;
+  background-color: #ddd;
   justify-content: center;
   align-items: center;
 `;
@@ -44,7 +45,7 @@ export const SearchInput = styled(TextInput)`
   font-size: 16px;
 `;
 
-export const CategoriesGrid = styled(ScrollView)``;
+export const ItemsGrid = styled(ScrollView)``;
 
 export const DeleteButton = ({ onPress }) => {
   return (

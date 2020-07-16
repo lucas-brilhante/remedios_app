@@ -60,6 +60,10 @@ namespace MedicamentosApi.Controllers
                 return BadRequest();
             }
 
+            var drug = await _context.Drugs.SingleOrDefaultAsync(drug => drug.Id == medicalPrescription.DrugId);
+
+            medicalPrescription.TotalPrice = medicalPrescription.Quantity * drug.Price;
+
             _context.Entry(medicalPrescription).State = EntityState.Modified;
 
             try

@@ -84,7 +84,7 @@ const CategoryForm = ({ handleRoute, routeProps: category = null }) => {
           <ErrorMessage>{error}</ErrorMessage>
           {isFetching ? (
             <Button>
-              <ActivityIndicator size="small" color="#0000ff" />
+              <ActivityIndicator size="small" color="#ffba08" />
             </Button>
           ) : (
             <Button onPress={category ? updateCategory : createCategory}>

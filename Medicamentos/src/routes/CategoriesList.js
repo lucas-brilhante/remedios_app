@@ -104,7 +104,7 @@ const CategoriesList = ({ handleRoute }) => {
   return (
     <Container>
       {isFetching ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#ffba08" />
       ) : (
         <List>
           <Title>Lista de Categorias</Title>

@@ -11,7 +11,7 @@ import { Feather } from "@expo/vector-icons";
 
 export const Container = styled(View)`
   flex: 1;
-  background-color: #ddd;
+  background-color: #95d5b2;
   justify-content: center;
   align-items: center;
 `;
@@ -32,7 +32,7 @@ export const Title = styled(Text)`
 export const SearchBar = styled(View)`
   flex-direction: row;
   width: 100%;
-  background-color: #fff;
+  background-color: #d8f3dc;
   border-width: 1px;
   border-radius: 16px;
   align-items: center;

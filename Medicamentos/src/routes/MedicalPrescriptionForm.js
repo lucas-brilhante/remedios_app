@@ -6,7 +6,6 @@ import {
   View,
   TouchableOpacity,
   Text,
-  Picker,
   Keyboard,
 } from "react-native";
 import remediosApi from "../services/remediosApi";
@@ -32,6 +31,8 @@ import parseCurrencyToDecimal from "../utils/parseCurrencyToDecimal";
 import getCurrentDate from "../utils/getCurrentDate";
 import useUser from "../hooks/useUsers";
 import getNumbers from "../utils/getNumbers";
+import { Feather } from "@expo/vector-icons";
+import { Picker, DatePicker } from "native-base";
 
 const MedicalPrescriptionForm = ({
   handleRoute,
@@ -155,7 +156,7 @@ const MedicalPrescriptionForm = ({
               alignItems: "center",
             }}
           >
-            <ActivityIndicator size="large" color="#0000ff" />
+            <ActivityIndicator size="large" color="#ffba08" />
           </View>
         ) : (
           <Form>
@@ -163,14 +164,16 @@ const MedicalPrescriptionForm = ({
             <Label>Paciente</Label>
             <PickerView>
               <Picker
-                style={{ width: "100%", height: "100%" }}
+                mode="dropdown"
+                iosIcon={<Feather name="chevron-down" />}
+                placeholder="Selecione o paciente."
+                placeholderStyle={{ fontSize: 16, color: "#999" }}
                 selectedValue={patientId}
                 onValueChange={(itemValue, itemIndex) => {
                   Keyboard.dismiss();
                   setPatientId(itemValue);
                 }}
               >
-                <Picker.Item label="Selecione o Paciente." value={-1} />
                 {patients.map((patient) => (
                   <Picker.Item
                     key={patient.id}
@@ -183,14 +186,16 @@ const MedicalPrescriptionForm = ({
             <Label>Medicamento</Label>
             <PickerView>
               <Picker
-                style={{ width: "100%", height: "100%" }}
+                mode="dropdown"
+                iosIcon={<Feather name="chevron-down" />}
+                placeholder="Selecione o medicamento."
+                placeholderStyle={{ fontSize: 16, color: "#999" }}
                 selectedValue={drugId}
                 onValueChange={(itemValue, itemIndex) => {
                   Keyboard.dismiss();
                   setDrugId(itemValue);
                 }}
               >
-                <Picker.Item label="Selecione o Medicamento." value={-1} />
                 {drugs.map((drug) => (
                   <Picker.Item
                     key={drug.id}
@@ -209,7 +214,7 @@ const MedicalPrescriptionForm = ({
             <ErrorMessage>{error}</ErrorMessage>
             {isFetching ? (
               <Button>
-                <ActivityIndicator size="small" color="#0000ff" />
+                <ActivityIndicator size="small" color="#ffba08" />
               </Button>
             ) : (
               <Button

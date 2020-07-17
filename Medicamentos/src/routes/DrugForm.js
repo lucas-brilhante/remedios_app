@@ -6,14 +6,12 @@ import {
   View,
   TouchableOpacity,
   Text,
-  Picker,
   Keyboard,
 } from "react-native";
 import remediosApi from "../services/remediosApi";
 import {
   Container,
   Form,
-  Content,
   Title,
   Label,
   Input,
@@ -26,20 +24,19 @@ import {
   ButtonAsInput,
 } from "../components/Form";
 import { routes } from "../routes";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import getNormalizedDate from "../utils/getNormalizedDate";
 import parseCurrencyToDecimal from "../utils/parseCurrencyToDecimal";
-import getCurrentDate from "../utils/getCurrentDate";
+import getNormalizedDate from "../utils/getNormalizedDate";
+import { Feather } from "@expo/vector-icons";
+import { Picker, DatePicker } from "native-base";
 
 const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
-  const height = Dimensions.get("screen").height;
   const [drugId, setDrugId] = useState(drug ? drug.id : 0);
   const [drugName, setDrugName] = useState(drug ? drug.name : "");
   const [drugPrice, setDrugPrice] = useState(
-    drug ? drug.price.toString() : "0.0"
+    drug ? drug.price.toFixed(2) : "0.0"
   );
   const [drugExpirationDate, setDrugExpirationDate] = useState(
-    drug ? new Date(drug.expirationDate.slice(0, 10)) : new Date()
+    drug ? new Date(drug.expirationDate.slice(0, 10)) : ""
   );
   const [drugCategoryId, setDrugCategoryId] = useState(
     drug ? drug.category.id : -1
@@ -48,8 +45,6 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
   const [error, setError] = useState("");
   const [isFetching, setIsFetching] = useState(false);
   const [isLoadingPage, setIsLoadingPage] = useState(true);
-  const [showDataPicker, setShowDataPicker] = useState(false);
-  const [dateSelected, setDateSelected] = useState(drug ? true : false);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -68,7 +63,8 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
     const drug = {
       name: drugName,
       price: parseCurrencyToDecimal(drugPrice),
-      expirationDate: dateSelected ? drugExpirationDate : "1111-11-11",
+      expirationDate:
+        drugExpirationDate !== "" ? drugExpirationDate : "1111-11-11",
       categoryId: drugCategoryId,
     };
 
@@ -106,7 +102,7 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
     setError("");
     setIsFetching(true);
     try {
-      const apiResponse = await remediosApi.put(`drugs/${drugId}`, {
+      await remediosApi.put(`drugs/${drugId}`, {
         ...drug,
       });
       Alert.alert(
@@ -125,27 +121,9 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
     setIsFetching(false);
   };
 
-  const onChangeData = (event, selectedDate) => {
-    const currentDate = selectedDate || drugExpirationDate;
-    setShowDataPicker(Platform.OS === "ios");
-    setDrugExpirationDate(currentDate);
-    setDateSelected(true);
-  };
-
   return (
     <KeyboardAvoiding keyboardShouldPersistTaps="handled">
       <Container>
-        {showDataPicker && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            minimumDate={new Date()}
-            value={drugExpirationDate}
-            mode={"date"}
-            is24Hour={true}
-            display="default"
-            onChange={onChangeData}
-          />
-        )}
         {isLoadingPage ? (
           <View
             style={{
@@ -154,7 +132,7 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
               alignItems: "center",
             }}
           >
-            <ActivityIndicator size="large" color="#0000ff" />
+            <ActivityIndicator size="large" color="#ffba08" />
           </View>
         ) : (
           <Form>
@@ -168,32 +146,40 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
               onChangeText={setDrugPrice}
             />
             <Label>Data de Validade</Label>
-            <TouchableOpacity
-              onPress={() => {
-                Keyboard.dismiss();
-                setShowDataPicker(true);
-              }}
-              activeOpacity={1}
-            >
-              <ButtonAsInput>
-                <Text>
-                  {dateSelected
+            <PickerView>
+              <DatePicker
+                defaultDate={
+                  drugExpirationDate !== "" ? drugExpirationDate : null
+                }
+                minimumDate={new Date()}
+                locale={"pt"}
+                timeZoneOffsetInMinutes={undefined}
+                modalTransparent={false}
+                animationType={"fade"}
+                androidMode={"default"}
+                placeHolderText={
+                  drugExpirationDate !== ""
                     ? getNormalizedDate(drugExpirationDate)
-                    : "__/__/____"}
-                </Text>
-              </ButtonAsInput>
-            </TouchableOpacity>
+                    : "Selecione a data."
+                }
+                placeHolderTextStyle={{ color: "#999" }}
+                onDateChange={setDrugExpirationDate}
+                disabled={false}
+              />
+            </PickerView>
             <Label>Categoria</Label>
             <PickerView>
               <Picker
-                style={{ width: "100%", height: "100%" }}
+                mode="dropdown"
+                iosIcon={<Feather name="chevron-down" />}
+                placeholder="Selecione a categoria"
+                placeholderStyle={{ fontSize: 16, color: "#999" }}
                 selectedValue={drugCategoryId}
                 onValueChange={(itemValue, itemIndex) => {
                   Keyboard.dismiss();
                   setDrugCategoryId(itemValue);
                 }}
               >
-                <Picker.Item label="Selecione uma categoria" value={-1} />
                 {categories.map((category) => (
                   <Picker.Item
                     key={category.id}
@@ -206,7 +192,7 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
             <ErrorMessage>{error}</ErrorMessage>
             {isFetching ? (
               <Button>
-                <ActivityIndicator size="small" color="#0000ff" />
+                <ActivityIndicator size="small" color="#ffba08" />
               </Button>
             ) : (
               <Button onPress={drug ? updateDrug : createDrug}>

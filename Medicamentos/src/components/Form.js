@@ -19,7 +19,7 @@ export const KeyboardAvoiding = styled(KeyboardAwareScrollView).attrs({
 
 export const Container = styled(View)`
   flex: 1;
-  background-color: #d5d5d5;
+  background-color: #95d5b2;
 `;
 
 export const Form = styled(View)`
@@ -47,7 +47,7 @@ export const Input = styled(TextInput)`
   padding: 8px;
   border-radius: 5px;
   margin-bottom: 16px;
-  background-color: #f1f1f1;
+  background-color: #d8f3dc;
 `;
 
 export const MaskedInput = styled(TextInputMask)`
@@ -58,27 +58,26 @@ export const MaskedInput = styled(TextInputMask)`
   padding: 8px;
   border-radius: 5px;
   margin-bottom: 16px;
-  background-color: #f1f1f1;
+  background-color: #d8f3dc;
 `;
 
 export const PickerView = styled(View)`
-  width: 100%;
   height: 40px;
+  justify-content: center;
   border-width: 1px;
   border-color: #777;
-  padding: 8px;
   border-radius: 5px;
   margin-bottom: 16px;
-  background-color: #f1f1f1;
+  background-color: #d8f3dc;
+  padding-right: 8px;
 `;
 
 export const Button = styled(TouchableOpacity)`
-  background-color: yellow;
   padding: 8px;
   border-width: 1px;
   border-color: #aaa;
   border-radius: 24px;
-  background-color: yellow;
+  background-color: #081c15;
   height: 48px;
   justify-content: center;
   margin-top: 16px;
@@ -92,7 +91,7 @@ export const ButtonAsInput = styled(View)`
   padding: 8px;
   border-radius: 5px;
   margin-bottom: 16px;
-  background-color: #f1f1f1;
+  background-color: #d8f3dc;
 `;
 
 export const ButtonText = styled(Text)`
@@ -100,6 +99,7 @@ export const ButtonText = styled(Text)`
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
+  color: #d8f3dc;
 `;
 
 export const ErrorMessage = styled(Text)`

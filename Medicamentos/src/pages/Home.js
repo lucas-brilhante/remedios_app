@@ -26,7 +26,8 @@ const Home = () => {
 
   return (
     <Container>
-      <StatusBar backgroundColor="#d5d5d5" />
+      <StatusBar backgroundColor="#52b788" />
+      <View style={{ height: 50, backgroundColor: "#52b788" }} />
       <MenuDrawer
         open={showSideDrawer}
         drawerContent={
@@ -38,7 +39,7 @@ const Home = () => {
         opacity={0.5}
       >
         <Header
-          color={"#d5d5d5"}
+          color={"#52b788"}
           handleRoute={handleRoute}
           handleSideDrawer={handleSideDrawer}
         />
@@ -54,7 +55,8 @@ const Home = () => {
 
 const Container = styled(SafeAreaView)`
   flex: 1;
-  background-color: #d5d5d5;
+  position: relative;
+  background-color: #95d5b2;
 `;
 
 export default Home;

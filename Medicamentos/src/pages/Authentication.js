@@ -83,7 +83,7 @@ const Authentication = () => {
           <ErrorMessage>{error}</ErrorMessage>
           {isFetching ? (
             <Button>
-              <ActivityIndicator size="small" color="#0000ff" />
+              <ActivityIndicator size="small" color="#ffba08" />
             </Button>
           ) : (
             <Button onPress={signIn}>
@@ -104,7 +104,7 @@ const Authentication = () => {
 
 const Container = styled(SafeAreaView)`
   flex: 1;
-  background-color: #ddd;
+  background-color: #95d5b2;
 `;
 
 const Logo = styled(Text)`

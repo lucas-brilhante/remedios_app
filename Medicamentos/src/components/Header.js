@@ -43,7 +43,7 @@ const Content = styled(View)`
   flex-direction: row;
   align-items: flex-end;
   padding: 16px;
-  padding-bottom: 0px;
+  padding-bottom: 4px;
 `;
 const MenuContainer = styled(View)`
   flex: 3;
@@ -61,14 +61,12 @@ const Logo = styled(Text)`
 
 const MenuButton = styled(View)`
   flex: 1;
-  width: 150px;
-  padding-bottom: 8px;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: flex-start;
 `;
 const WelcomeContainer = styled(View)`
   flex: 1;
   align-items: flex-end;
-  padding-bottom: 8px;
 `;
 
 export default Header;

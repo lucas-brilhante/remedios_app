@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import styled from "styled-components";
 import remediosApi from "../services/remediosApi";
-import { Feather, FontAwesome } from "@expo/vector-icons";
+import { Feather, FontAwesome5 } from "@expo/vector-icons";
 import { routes } from "../routes";
 import useUser from "../hooks/useUsers";
 import stringToFormatedData from "../utils/stringToFormatedData";
@@ -107,7 +107,7 @@ const DrugList = ({ handleRoute }) => {
   return (
     <Container>
       {isFetching ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#ffba08" />
       ) : (
         <List>
           <Title>Lista de Medicamentos</Title>
@@ -131,7 +131,7 @@ const DrugList = ({ handleRoute }) => {
                 <Drug>
                   <DrugContainer>
                     <DrugTitleGroup>
-                      <FontAwesome name="star" size={20} color="orange" />
+                      <FontAwesome5 name="pills" size={20} color="red" />
                       <DrugTitle>{drug.name}</DrugTitle>
                     </DrugTitleGroup>
                     <DrugAttributesGroup>

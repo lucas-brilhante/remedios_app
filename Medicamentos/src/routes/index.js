@@ -1,10 +1,8 @@
-export const routes = {
-  welcome: 0,
-  addCategory: 1,
-  listCategories: 2,
-  addDrug: 3,
-  listDrugs: 4,
-  addMedicalPrescription: 5,
-  listMedicalPrescriptions: 6,
-  listUsers: 7,
-};
+export { default as CategoriesList } from "./CategoriesList";
+export { default as CategoryForm } from "./CategoryForm";
+export { default as DrugForm } from "./DrugForm";
+export { default as DrugsList } from "./DrugsList";
+export { default as MedicalPrescriptionForm } from "./MedicalPrescriptionForm";
+export { default as MedicalPrescriptionsList } from "./MedicalPrescriptionsList";
+export { default as UsersList } from "./UsersList";
+export { default as Welcome } from "./Welcome";

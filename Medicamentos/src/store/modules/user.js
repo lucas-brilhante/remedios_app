@@ -27,11 +27,11 @@ export default createReducer(initialState, {
 });
 
 // Actions Creator
-export const setUser = (user) => ({
+export const signIn = (user) => ({
   type: SET_USER,
   payload: user,
 });
 
-export const logOut = () => ({
+export const signOut = () => ({
   type: LOG_OUT,
 });

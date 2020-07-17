@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  Dimensions,
-  View,
-  TouchableOpacity,
-  Text,
-  Keyboard,
-} from "react-native";
+import { ActivityIndicator, Alert, View, Keyboard } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { Picker } from "native-base";
 import remediosApi from "../services/remediosApi";
+import { routes } from "../routes/routes";
+import { useUser } from "../hooks";
+import { getNumbers } from "../utils";
 import {
   Container,
   Form,
-  Content,
   Title,
   Label,
   Input,
@@ -20,19 +16,8 @@ import {
   ButtonText,
   ErrorMessage,
   KeyboardAvoiding,
-  MaskedInput,
   PickerView,
-  ButtonAsInput,
 } from "../components/Form";
-import { routes } from "../routes";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import getNormalizedDate from "../utils/getNormalizedDate";
-import parseCurrencyToDecimal from "../utils/parseCurrencyToDecimal";
-import getCurrentDate from "../utils/getCurrentDate";
-import useUser from "../hooks/useUsers";
-import getNumbers from "../utils/getNumbers";
-import { Feather } from "@expo/vector-icons";
-import { Picker, DatePicker } from "native-base";
 
 const MedicalPrescriptionForm = ({
   handleRoute,

@@ -1,13 +1,15 @@
 import React from "react";
-import Welcome from "../routes/Welcome";
-import CategoryForm from "../routes/CategoryForm";
-import CategoriesList from "../routes/CategoriesList";
-import DrugForm from "../routes/DrugForm";
-import DrugsList from "../routes/DrugsList";
-import MedicalPrescriptionForm from "../routes/MedicalPrescriptionForm";
-import MedicalPrescriptionsList from "../routes/MedicalPrescriptionsList";
-import UsersList from "../routes/UsersList";
-import { routes } from "../routes";
+import { routes } from "../routes/routes";
+import {
+  Welcome,
+  CategoryForm,
+  CategoriesList,
+  DrugForm,
+  DrugsList,
+  MedicalPrescriptionForm,
+  MedicalPrescriptionsList,
+  UsersList,
+} from "../routes";
 
 const RoutesNavigator = ({ route, handleRoute, routeProps }) => {
   switch (route) {

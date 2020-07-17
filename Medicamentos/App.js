@@ -2,13 +2,11 @@ import "react-native-gesture-handler";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Authentication from "./src/pages/Authentication";
-import CreateNewUser from "./src/pages/UserForm";
-import Home from "./src/pages/Home";
 import { Provider } from "react-redux";
-import store from "./src/store/store";
 import { useFonts, Bangers_400Regular } from "@expo-google-fonts/bangers";
 import { Abel_400Regular } from "@expo-google-fonts/abel";
+import { Authentication, UserForm, Home } from "./src/pages";
+import { store } from "./src/store";
 
 const Stack = createStackNavigator();
 
@@ -31,7 +29,7 @@ const App = () => {
             />
             <Stack.Screen
               name="Create User"
-              component={CreateNewUser}
+              component={UserForm}
               options={{ title: "Criar conta" }}
             />
             <Stack.Screen

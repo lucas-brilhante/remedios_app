@@ -1,27 +1,20 @@
-import React, {
-  Fragment,
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
-  Alert,
 } from "react-native";
 import styled from "styled-components";
-import remediosApi from "../services/remediosApi";
 import { Feather, FontAwesome5 } from "@expo/vector-icons";
-import { routes } from "../routes";
-import useUser from "../hooks/useUsers";
-import stringToFormatedData from "../utils/stringToFormatedData";
-import decimalToBrl from "../utils/decimalToBrl";
-import removeSpecialCharacters from "../utils/removeSpecialCharacters";
-import getNumbers from "../utils/getNumbers";
+import { remediosApi } from "../services";
+import { useUser } from "../hooks";
+import {
+  stringToFormatedData,
+  removeSpecialCharacters,
+  getNumbers,
+} from "../utils";
 
 import {
   Container,

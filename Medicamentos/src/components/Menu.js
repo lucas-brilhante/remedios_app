@@ -8,12 +8,12 @@ import {
 } from "react-native";
 import styled from "styled-components";
 import { Feather, FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { routes } from "../routes";
-import useUser from "../hooks/useUsers";
 import { useNavigation } from "@react-navigation/native";
-import firebaseAuth from "../services/firebaseAuth";
 import { useDispatch } from "react-redux";
-import { logOut } from "../store/modules/user";
+import { routes } from "../routes/routes";
+import { useUser } from "../hooks";
+import { firebaseAuth } from "../services";
+import { signOut } from "../store";
 
 const Menu = ({ handleSideDrawer, handleRoute }) => {
   const user = useUser();
@@ -23,7 +23,7 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
   const logout = async () => {
     try {
       await firebaseAuth.signOut();
-      dispatch(logOut());
+      dispatch(signOut());
       navigation.navigate("Authentication");
     } catch (error) {
       console.log(error);

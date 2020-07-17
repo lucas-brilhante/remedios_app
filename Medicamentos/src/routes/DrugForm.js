@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  Dimensions,
-  View,
-  TouchableOpacity,
-  Text,
-  Keyboard,
-} from "react-native";
-import remediosApi from "../services/remediosApi";
+import { ActivityIndicator, Alert, View, Keyboard } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { Picker, DatePicker } from "native-base";
+import { remediosApi } from "../services";
+import { routes } from "../routes/routes";
+import { parseCurrencyToDecimal, getNormalizedDate } from "../utils";
 import {
   Container,
   Form,
@@ -21,13 +17,7 @@ import {
   KeyboardAvoiding,
   MaskedInput,
   PickerView,
-  ButtonAsInput,
 } from "../components/Form";
-import { routes } from "../routes";
-import parseCurrencyToDecimal from "../utils/parseCurrencyToDecimal";
-import getNormalizedDate from "../utils/getNormalizedDate";
-import { Feather } from "@expo/vector-icons";
-import { Picker, DatePicker } from "native-base";
 
 const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
   const [drugId, setDrugId] = useState(drug ? drug.id : 0);

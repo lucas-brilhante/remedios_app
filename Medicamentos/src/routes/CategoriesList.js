@@ -14,10 +14,10 @@ import {
   Alert,
 } from "react-native";
 import styled from "styled-components";
-import remediosApi from "../services/remediosApi";
 import { Feather, FontAwesome } from "@expo/vector-icons";
-import { routes } from "../routes";
-import useUser from "../hooks/useUsers";
+import { routes } from "../routes/routes";
+import { useUser } from "../hooks";
+import { remediosApi } from "../services";
 import {
   Container,
   List,

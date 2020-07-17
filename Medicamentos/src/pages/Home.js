@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, StatusBar } from "react-native";
+import { View, SafeAreaView, StatusBar } from "react-native";
 import styled from "styled-components";
-import Header from "../components/Header";
 import MenuDrawer from "react-native-side-drawer";
-import Menu from "../components/Menu";
-import useUsers from "../hooks/useUsers";
-import RoutesNavigator from "../components/RoutesNavigator";
-import { routes } from "../routes";
+import { routes } from "../routes/routes";
+import { Header, Menu, RoutesNavigator } from "../components";
 
 const Home = () => {
-  const user = useUsers();
   const [showSideDrawer, setShowSideDrawer] = useState(false);
   const [route, setRoute] = useState(routes.welcome);
   const [routeProps, setRouteProps] = useState({});

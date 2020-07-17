@@ -2,21 +2,18 @@ import React, { useState } from "react";
 import {
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
 } from "react-native";
-import firebaseAuth from "../services/firebaseAuth";
-import remediosApi from "../services/remediosApi";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { setUser } from "../store/modules/user";
+import { signIn } from "../store";
+import { firebaseAuth, remediosApi } from "../services";
 
 import {
   Form,
-  Content,
   Title,
   Label,
   Input,
@@ -24,9 +21,6 @@ import {
   ButtonText,
   ErrorMessage,
   KeyboardAvoiding,
-  MaskedInput,
-  PickerView,
-  ButtonAsInput,
 } from "../components/Form";
 
 const Authentication = () => {
@@ -37,14 +31,16 @@ const Authentication = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const signIn = async () => {
+  const logIn = async () => {
     setIsFetching(true);
     setError("");
     try {
       await firebaseAuth.signInWithEmailAndPassword(login, password);
       try {
         const apiResponse = await remediosApi.get(`users/${login}`);
-        dispatch(setUser(apiResponse.data));
+        dispatch(signIn(apiResponse.data));
+        setLogin("");
+        setPassword("");
         navigation.navigate("Home");
       } catch (error) {
         console.log(error);
@@ -86,7 +82,7 @@ const Authentication = () => {
               <ActivityIndicator size="small" color="#ffba08" />
             </Button>
           ) : (
-            <Button onPress={signIn}>
+            <Button onPress={logIn}>
               <ButtonText>Entrar</ButtonText>
             </Button>
           )}

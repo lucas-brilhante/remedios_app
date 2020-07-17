@@ -2,11 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { Feather } from "@expo/vector-icons";
-import useUsers from "../hooks/useUsers";
-import { routes } from "../routes";
+import { useUser } from "../hooks";
+import { routes } from "../routes/routes";
 
 const Header = ({ color, handleSideDrawer, handleRoute }) => {
-  const user = useUsers();
+  const user = useUser();
   return (
     <Container color={color}>
       <Content>

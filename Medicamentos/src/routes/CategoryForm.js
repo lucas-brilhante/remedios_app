@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ActivityIndicator, Alert } from "react-native";
-import remediosApi from "../services/remediosApi";
+import { remediosApi } from "../services";
+import { routes } from "../routes/routes";
 import {
   Container,
   Form,
-  Content,
   Title,
   Label,
   Input,
@@ -13,7 +13,6 @@ import {
   ErrorMessage,
   KeyboardAvoiding,
 } from "../components/Form";
-import { routes } from "../routes";
 
 const CategoryForm = ({ handleRoute, routeProps: category = null }) => {
   const [categoryId, setCategoryId] = useState(category ? category.id : 0);

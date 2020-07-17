@@ -1,27 +1,15 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
-import {
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  SafeAreaView,
-  ActivityIndicator,
-} from "react-native";
-import firebaseAuth from "../services/firebaseAuth";
-import remediosApi from "../services/remediosApi";
+import { SafeAreaView, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { TextInputMask } from "react-native-masked-text";
-import getNormalizedDate from "../utils/getNormalizedDate";
 import { useDispatch } from "react-redux";
-import { setUser } from "../store/modules/user";
 import { Picker, DatePicker } from "native-base";
 import { Feather } from "@expo/vector-icons";
+import { firebaseAuth, remediosApi } from "../services";
+import { signIn } from "../store";
 
 import {
   Form,
-  Content,
-  Title,
   Label,
   Input,
   Button,
@@ -30,7 +18,6 @@ import {
   KeyboardAvoiding,
   MaskedInput,
   PickerView,
-  ButtonAsInput,
 } from "../components/Form";
 
 const UserForm = () => {
@@ -73,8 +60,8 @@ const UserForm = () => {
     try {
       const response = await remediosApi.post("users", { ...user });
       try {
-        dispatch(setUser(response.data));
         await firebaseAuth.createUserWithEmailAndPassword(login, password);
+        dispatch(signIn(response.data));
         navigation.navigate("Home");
       } catch (error) {
         setError(error);

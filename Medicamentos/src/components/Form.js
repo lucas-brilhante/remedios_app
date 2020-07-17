@@ -1,14 +1,6 @@
-import {
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { TextInputMask } from "react-native-masked-text";
-
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export const KeyboardAvoiding = styled(KeyboardAwareScrollView).attrs({

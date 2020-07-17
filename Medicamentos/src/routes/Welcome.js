@@ -1,9 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import styled from "styled-components";
-import useUser from "../hooks/useUsers";
-import parseCurrencyToDecimal from "../utils/parseCurrencyToDecimal";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { useUser } from "../hooks";
 
 const Welcome = () => {
   const user = useUser();

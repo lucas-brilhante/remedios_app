@@ -34,7 +34,7 @@ const CategoryForm = ({ handleRoute, routeProps: category = null }) => {
       Alert.alert(
         null,
         "Categoria cadastrada com sucesso",
-        [{ text: "Ok", onPress: () => handleRoute(routes.welcome) }],
+        [{ text: "Ok", onPress: () => handleRoute(routes.listCategories) }],
         {
           cancelable: false,
         }
@@ -61,7 +61,7 @@ const CategoryForm = ({ handleRoute, routeProps: category = null }) => {
       Alert.alert(
         null,
         "Categoria editada com sucesso",
-        [{ text: "Ok", onPress: () => handleRoute(routes.welcome) }],
+        [{ text: "Ok", onPress: () => handleRoute(routes.listCategories) }],
         {
           cancelable: false,
         }

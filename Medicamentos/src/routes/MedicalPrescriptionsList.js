@@ -61,13 +61,17 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
       let apiResponse;
       if (user.accountType === "admin")
         apiResponse = await remediosApi.get("medicalprescriptions");
+      else if (user.accountType === "doctor")
+        apiResponse = await remediosApi.get(`doctorsprescriptions/${user.id}`);
       else
-        apiResponse = await remediosApi.get(`medicalprescriptions/${user.id}`);
+        apiResponse = await remediosApi.get(`patientsprescriptions/${user.id}`);
+
       setPrescriptions(apiResponse.data);
       setFilteredPrescriptions(apiResponse.data);
       setIsFetching(false);
     } catch (error) {
       console.log(error);
+      setIsFetching(false);
     }
   }, []);
 
@@ -171,20 +175,26 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
                           )}
                         </PrescriptionText>
                       </PrescriptionTextGroup>
-                      <PrescriptionTextGroup>
-                        <PrescriptionBoldText>Paciente: </PrescriptionBoldText>
-                        <PrescriptionText>
-                          {prescription.patient.name}
-                        </PrescriptionText>
-                      </PrescriptionTextGroup>
-                      <PrescriptionTextGroup>
-                        <PrescriptionBoldText>
-                          Receitado por:{" "}
-                        </PrescriptionBoldText>
-                        <PrescriptionText>
-                          {prescription.doctor.name}
-                        </PrescriptionText>
-                      </PrescriptionTextGroup>
+                      {user.accountType !== "patient" && (
+                        <PrescriptionTextGroup>
+                          <PrescriptionBoldText>
+                            Paciente:{" "}
+                          </PrescriptionBoldText>
+                          <PrescriptionText>
+                            {`${prescription.patient.name} ${prescription.patient.lastName}`}
+                          </PrescriptionText>
+                        </PrescriptionTextGroup>
+                      )}
+                      {user.accountType !== "doctor" && (
+                        <PrescriptionTextGroup>
+                          <PrescriptionBoldText>
+                            Receitado por:{" "}
+                          </PrescriptionBoldText>
+                          <PrescriptionText>
+                            {`${prescription.doctor.name} ${prescription.doctor.lastName}`}
+                          </PrescriptionText>
+                        </PrescriptionTextGroup>
+                      )}
                     </PrescriptionAttributesGroup>
                   </PrescriptionContainer>
                   {user.accountType === "admin" && (

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import styled from "styled-components";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { routes } from "../routes";
+import useUser from "../hooks/useUsers";
 
 const Menu = ({ handleSideDrawer, handleRoute }) => {
+  const user = useUser();
   return (
     <Container>
       <Header>
@@ -13,121 +15,148 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
           <Feather name="arrow-left" size={32} color="black" />
         </MenuCloseButton>
       </Header>
-      <MenuItem>
-        <MenuTitleGroup>
-          <FontAwesome name="star" size={20} color="orange" />
-          <MenuTitle>Categorias</MenuTitle>
-        </MenuTitleGroup>
-        <TouchableOpacity
-          onPress={() => {
-            handleRoute(routes.addCategory);
-          }}
-        >
-          <SubMenuItem>
-            <SubMenuTitleGroup>
-              <Feather name="plus" size={20} color="green" />
-              <SubItemTitle>Adicionar</SubItemTitle>
-            </SubMenuTitleGroup>
-            <Feather name="arrow-right" size={20} color="black" />
-          </SubMenuItem>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            handleRoute(routes.listCategories);
-          }}
-        >
-          <SubMenuItem>
-            <SubMenuTitleGroup>
-              <Feather name="search" size={20} color="blue" />
-              <SubItemTitle>Listar</SubItemTitle>
-            </SubMenuTitleGroup>
-            <Feather name="arrow-right" size={20} color="black" />
-          </SubMenuItem>
-        </TouchableOpacity>
-      </MenuItem>
-      <MenuItem>
-        <MenuTitleGroup>
-          <FontAwesome name="star" size={20} color="orange" />
-          <MenuTitle>Medicamentos</MenuTitle>
-        </MenuTitleGroup>
-        <TouchableOpacity
-          onPress={() => {
-            handleRoute(routes.addDrug);
-          }}
-        >
-          <SubMenuItem>
-            <SubMenuTitleGroup>
-              <Feather name="plus" size={20} color="green" />
-              <SubItemTitle>Adicionar</SubItemTitle>
-            </SubMenuTitleGroup>
-            <Feather name="arrow-right" size={20} color="black" />
-          </SubMenuItem>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            handleRoute(routes.listDrugs);
-          }}
-        >
-          <SubMenuItem>
-            <SubMenuTitleGroup>
-              <Feather name="search" size={20} color="blue" />
-              <SubItemTitle>Listar</SubItemTitle>
-            </SubMenuTitleGroup>
-            <Feather name="arrow-right" size={20} color="black" />
-          </SubMenuItem>
-        </TouchableOpacity>
-      </MenuItem>
-      <MenuItem>
-        <MenuTitleGroup>
-          <FontAwesome name="star" size={20} color="orange" />
-          <MenuTitle>Receitas</MenuTitle>
-        </MenuTitleGroup>
-        <TouchableOpacity
-          onPress={() => {
-            handleRoute(routes.addMedicalPrescription);
-          }}
-        >
-          <SubMenuItem>
-            <SubMenuTitleGroup>
-              <Feather name="plus" size={20} color="green" />
-              <SubItemTitle>Receitar Paciente</SubItemTitle>
-            </SubMenuTitleGroup>
-            <Feather name="arrow-right" size={20} color="black" />
-          </SubMenuItem>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            handleRoute(routes.listMedicalPrescriptions);
-          }}
-        >
-          <SubMenuItem>
-            <SubMenuTitleGroup>
-              <Feather name="search" size={20} color="blue" />
-              <SubItemTitle>Listar</SubItemTitle>
-            </SubMenuTitleGroup>
-            <Feather name="arrow-right" size={20} color="black" />
-          </SubMenuItem>
-        </TouchableOpacity>
-      </MenuItem>
-      <MenuItem>
-        <MenuTitleGroup>
-          <FontAwesome name="star" size={20} color="orange" />
-          <MenuTitle>Usuários</MenuTitle>
-        </MenuTitleGroup>
-        <TouchableOpacity
-          onPress={() => {
-            handleRoute(routes.listUsers);
-          }}
-        >
-          <SubMenuItem>
-            <SubMenuTitleGroup>
-              <Feather name="search" size={20} color="blue" />
-              <SubItemTitle>Listar</SubItemTitle>
-            </SubMenuTitleGroup>
-            <Feather name="arrow-right" size={20} color="black" />
-          </SubMenuItem>
-        </TouchableOpacity>
-      </MenuItem>
+      {user.accountType !== "patient" && (
+        <Fragment>
+          <MenuItem>
+            <MenuTitleGroup>
+              <FontAwesome name="star" size={20} color="orange" />
+              <MenuTitle>Categorias</MenuTitle>
+            </MenuTitleGroup>
+            <TouchableOpacity
+              onPress={() => {
+                handleRoute(routes.addCategory);
+              }}
+            >
+              <SubMenuItem>
+                <SubMenuTitleGroup>
+                  <Feather name="plus" size={20} color="green" />
+                  <SubItemTitle>Adicionar</SubItemTitle>
+                </SubMenuTitleGroup>
+                <Feather name="arrow-right" size={20} color="black" />
+              </SubMenuItem>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                handleRoute(routes.listCategories);
+              }}
+            >
+              <SubMenuItem>
+                <SubMenuTitleGroup>
+                  <Feather name="search" size={20} color="blue" />
+                  <SubItemTitle>Listar</SubItemTitle>
+                </SubMenuTitleGroup>
+                <Feather name="arrow-right" size={20} color="black" />
+              </SubMenuItem>
+            </TouchableOpacity>
+          </MenuItem>
+          <MenuItem>
+            <MenuTitleGroup>
+              <FontAwesome name="star" size={20} color="orange" />
+              <MenuTitle>Medicamentos</MenuTitle>
+            </MenuTitleGroup>
+            <TouchableOpacity
+              onPress={() => {
+                handleRoute(routes.addDrug);
+              }}
+            >
+              <SubMenuItem>
+                <SubMenuTitleGroup>
+                  <Feather name="plus" size={20} color="green" />
+                  <SubItemTitle>Adicionar</SubItemTitle>
+                </SubMenuTitleGroup>
+                <Feather name="arrow-right" size={20} color="black" />
+              </SubMenuItem>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                handleRoute(routes.listDrugs);
+              }}
+            >
+              <SubMenuItem>
+                <SubMenuTitleGroup>
+                  <Feather name="search" size={20} color="blue" />
+                  <SubItemTitle>Listar</SubItemTitle>
+                </SubMenuTitleGroup>
+                <Feather name="arrow-right" size={20} color="black" />
+              </SubMenuItem>
+            </TouchableOpacity>
+          </MenuItem>
+          <MenuItem>
+            <MenuTitleGroup>
+              <FontAwesome name="star" size={20} color="orange" />
+              <MenuTitle>Receitas</MenuTitle>
+            </MenuTitleGroup>
+            <TouchableOpacity
+              onPress={() => {
+                handleRoute(routes.addMedicalPrescription);
+              }}
+            >
+              <SubMenuItem>
+                <SubMenuTitleGroup>
+                  <Feather name="plus" size={20} color="green" />
+                  <SubItemTitle>Receitar Paciente</SubItemTitle>
+                </SubMenuTitleGroup>
+                <Feather name="arrow-right" size={20} color="black" />
+              </SubMenuItem>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                handleRoute(routes.listMedicalPrescriptions);
+              }}
+            >
+              <SubMenuItem>
+                <SubMenuTitleGroup>
+                  <Feather name="search" size={20} color="blue" />
+                  <SubItemTitle>Listar</SubItemTitle>
+                </SubMenuTitleGroup>
+                <Feather name="arrow-right" size={20} color="black" />
+              </SubMenuItem>
+            </TouchableOpacity>
+          </MenuItem>
+        </Fragment>
+      )}
+      {user.accountType === "admin" && (
+        <MenuItem>
+          <MenuTitleGroup>
+            <FontAwesome name="star" size={20} color="orange" />
+            <MenuTitle>Usuários</MenuTitle>
+          </MenuTitleGroup>
+          <TouchableOpacity
+            onPress={() => {
+              handleRoute(routes.listUsers);
+            }}
+          >
+            <SubMenuItem>
+              <SubMenuTitleGroup>
+                <Feather name="search" size={20} color="blue" />
+                <SubItemTitle>Listar</SubItemTitle>
+              </SubMenuTitleGroup>
+              <Feather name="arrow-right" size={20} color="black" />
+            </SubMenuItem>
+          </TouchableOpacity>
+        </MenuItem>
+      )}
+      {user.accountType === "patient" && (
+        <MenuItem>
+          <MenuTitleGroup>
+            <FontAwesome name="star" size={20} color="orange" />
+            <MenuTitle>Receitas</MenuTitle>
+          </MenuTitleGroup>
+          <TouchableOpacity
+            onPress={() => {
+              handleRoute(routes.listMedicalPrescriptions);
+            }}
+          >
+            <SubMenuItem>
+              <SubMenuTitleGroup>
+                <Feather name="search" size={20} color="blue" />
+                <SubItemTitle>Ver minhas receitas</SubItemTitle>
+              </SubMenuTitleGroup>
+              <Feather name="arrow-right" size={20} color="black" />
+            </SubMenuItem>
+          </TouchableOpacity>
+        </MenuItem>
+      )}
     </Container>
   );
 };

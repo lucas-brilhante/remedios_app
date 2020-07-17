@@ -174,7 +174,7 @@ const MedicalPrescriptionForm = ({
                 {patients.map((patient) => (
                   <Picker.Item
                     key={patient.id}
-                    label={patient.name}
+                    label={`${patient.name} ${patient.lastName}`}
                     value={patient.id}
                   />
                 ))}

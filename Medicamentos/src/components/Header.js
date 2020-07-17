@@ -17,7 +17,7 @@ const Header = ({ color, handleSideDrawer, handleRoute }) => {
         </MenuButton>
         <MenuContainer>
           <TouchableOpacity onPress={() => handleRoute(routes.welcome)}>
-            <Logo>Remédios</Logo>
+            <Logo>Medicamentos</Logo>
           </TouchableOpacity>
         </MenuContainer>
         <WelcomeContainer>

@@ -5,50 +5,66 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
 import firebaseAuth from "../services/firebaseAuth";
 import remediosApi from "../services/remediosApi";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/modules/user";
+
+import {
+  Form,
+  Content,
+  Title,
+  Label,
+  Input,
+  Button,
+  ButtonText,
+  ErrorMessage,
+  KeyboardAvoiding,
+  MaskedInput,
+  PickerView,
+  ButtonAsInput,
+} from "../components/Form";
 
 const Authentication = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const signIn = async () => {
+    setIsFetching(true);
     setError("");
     try {
-      const firebaseResponse = await firebaseAuth.signInWithEmailAndPassword(
-        login,
-        password
-      );
+      await firebaseAuth.signInWithEmailAndPassword(login, password);
       try {
         const apiResponse = await remediosApi.get(`users/${login}`);
         dispatch(setUser(apiResponse.data));
         navigation.navigate("Home");
       } catch (error) {
         console.log(error);
+        setIsFetching(false);
       }
     } catch (error) {
       setError("Usuário ou Senha inválido.");
+      setIsFetching(false);
     }
   };
 
   const move = () => {
-    navigation.navigate("Create User", { teste: 121 });
+    navigation.navigate("Create User");
   };
 
   return (
     <Container>
-      <KeyboardAvoiding>
+      <KeyboardAvoiding keyboardShouldPersistTaps="handled">
         <Form>
-          <Logo>Remédios</Logo>
+          <Logo>Medicamentos</Logo>
           <Title>Login</Title>
           <Label>Usuário</Label>
           <Input
@@ -65,9 +81,15 @@ const Authentication = () => {
             textContentType="password"
           />
           <ErrorMessage>{error}</ErrorMessage>
-          <Button onPress={signIn}>
-            <ButtonText>Entrar</ButtonText>
-          </Button>
+          {isFetching ? (
+            <Button>
+              <ActivityIndicator size="small" color="#0000ff" />
+            </Button>
+          ) : (
+            <Button onPress={signIn}>
+              <ButtonText>Entrar</ButtonText>
+            </Button>
+          )}
           <LinkContainer>
             <LinkText>{"Não tem cadastro? "}</LinkText>
             <TouchableOpacity onPress={move}>
@@ -85,71 +107,13 @@ const Container = styled(SafeAreaView)`
   background-color: #ddd;
 `;
 
-const KeyboardAvoiding = styled(KeyboardAwareScrollView).attrs({
-  extraHeight: 220,
-  enableAutomaticScroll: true,
-  enableOnAndroid: true,
-})``;
-
-const Form = styled(View)`
-  padding: 24px;
-`;
-
 const Logo = styled(Text)`
-  font-size: 32px;
-  color: #2a32de;
-  text-align: center;
-  padding: 24px;
-`;
-
-const Title = styled(Text)`
   font-size: 40px;
-  font-weight: bold;
-  margin-bottom: 20px;
-`;
-
-const Label = styled(Text)`
-  font-size: 16px;
-  font-weight: bold;
-  color: #444;
-  margin-bottom: 8px;
-`;
-
-const Input = styled(TextInput)`
-  width: 100%;
-  height: 40px;
-  border-width: 1px;
-  border-color: #777;
-  padding: 8px;
-  border-radius: 5px;
-  margin-bottom: 16px;
-  background-color: #f1f1f1;
-`;
-
-const Button = styled(TouchableOpacity)`
-  background-color: yellow;
-  padding: 8px;
-  border-width: 1px;
-  border-color: #aaa;
-  border-radius: 24px;
-  background-color: yellow;
-  height: 48px;
-  justify-content: center;
-  margin-top: 16px;
-`;
-
-const ButtonText = styled(Text)`
+  padding: 16px;
+  color: green;
   text-align: center;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 16px;
-`;
-
-const ErrorMessage = styled(Text)`
-  color: red;
-  font-size: 20px;
-  text-align: center;
-  margin-top: 20px;
+  font-family: "Bangers";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 `;
 
 const LinkContainer = styled(View)`

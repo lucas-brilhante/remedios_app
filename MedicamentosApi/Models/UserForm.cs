@@ -22,9 +22,9 @@ public class UserForm
     [Required(ErrorMessage = "Sobrenome inválido.")]
     public string LastName { get; set; }
 
-    [Required(ErrorMessage = "Data de nascimento inválida.")]
+    [Required]
     [DataType(DataType.Date)]
-    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+    [CheckDate(ErrorMessage = "Data de nascimento inválida.")]
     public DateTime BirthDate { get; set; }
 
     [Required(ErrorMessage = "Cpf inválido.")]

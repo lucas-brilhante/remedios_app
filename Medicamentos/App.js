@@ -25,11 +25,6 @@ const App = () => {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
               name="Authentication"
               component={Authentication}
               options={{ headerShown: false }}
@@ -38,6 +33,11 @@ const App = () => {
               name="Create User"
               component={CreateNewUser}
               options={{ title: "Criar conta" }}
+            />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
             />
           </Stack.Navigator>
         </NavigationContainer>

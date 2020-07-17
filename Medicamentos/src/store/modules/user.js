@@ -5,6 +5,7 @@ const SET_USER = "SET_USER";
 
 // Reducer
 const initialState = {
+  /*
   id: 4,
   login: "admin02@admin.com",
   name: "Lucas",
@@ -16,6 +17,7 @@ const initialState = {
   token: null,
   crmNumber: null,
   accountType: "admin",
+  */
 };
 
 export default createReducer(initialState, {

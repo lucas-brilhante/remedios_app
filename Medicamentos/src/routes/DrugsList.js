@@ -131,7 +131,7 @@ const DrugList = ({ handleRoute }) => {
                 <Drug>
                   <DrugContainer>
                     <DrugTitleGroup>
-                      <FontAwesome5 name="pills" size={20} color="red" />
+                      <FontAwesome5 name="pills" size={20} color="blue" />
                       <DrugTitle>{drug.name}</DrugTitle>
                     </DrugTitleGroup>
                     <DrugAttributesGroup>

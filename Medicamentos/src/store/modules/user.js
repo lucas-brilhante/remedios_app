@@ -1,7 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit";
 
 // Actions
-const SET_USER = "SET_USER";
+const SET_USER = "@medicamentos/user/SET_USER";
+const LOG_OUT = "@medicamentos/user/LOG_OUT";
 
 // Reducer
 const initialState = {
@@ -22,10 +23,15 @@ const initialState = {
 
 export default createReducer(initialState, {
   [SET_USER]: (state, action) => action.payload,
+  [LOG_OUT]: (state, action) => initialState,
 });
 
 // Actions Creator
 export const setUser = (user) => ({
   type: SET_USER,
   payload: user,
+});
+
+export const logOut = () => ({
+  type: LOG_OUT,
 });

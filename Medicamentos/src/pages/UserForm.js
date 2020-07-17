@@ -137,6 +137,7 @@ const UserForm = () => {
             onChangeText={setPassword}
             autoCapitalize="none"
             textContentType="password"
+            secureTextEntry
           />
           <Label>Nome</Label>
           <Input value={name} onChangeText={setName} />

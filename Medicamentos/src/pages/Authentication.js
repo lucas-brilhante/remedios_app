@@ -48,12 +48,11 @@ const Authentication = () => {
         navigation.navigate("Home");
       } catch (error) {
         console.log(error);
-        setIsFetching(false);
       }
     } catch (error) {
       setError("Usuário ou Senha inválido.");
-      setIsFetching(false);
     }
+    setIsFetching(false);
   };
 
   const move = () => {
@@ -79,6 +78,7 @@ const Authentication = () => {
             onChangeText={setPassword}
             autoCapitalize="none"
             textContentType="password"
+            secureTextEntry
           />
           <ErrorMessage>{error}</ErrorMessage>
           {isFetching ? (

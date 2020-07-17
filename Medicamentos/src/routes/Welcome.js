@@ -35,6 +35,7 @@ const WelcomeText = styled(Text)`
 const WarningText = styled(Text)`
   font-size: 24px;
   color: red;
+  text-align: center;
 `;
 
 export default Welcome;

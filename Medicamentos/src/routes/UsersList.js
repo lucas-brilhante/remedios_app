@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import styled from "styled-components";
 import remediosApi from "../services/remediosApi";
-import { Feather, FontAwesome } from "@expo/vector-icons";
+import { Feather, FontAwesome5 } from "@expo/vector-icons";
 import { routes } from "../routes";
 import useUser from "../hooks/useUsers";
 import stringToFormatedData from "../utils/stringToFormatedData";
@@ -113,7 +113,7 @@ const UserList = ({ handleRoute }) => {
                 <Prescription>
                   <PrescriptionContainer>
                     <PrescriptionTitleGroup>
-                      <FontAwesome name="star" size={20} color="orange" />
+                      <FontAwesome5 name="user-alt" size={20} color="#03071e" />
                       <PrescriptionTitle>
                         {`${user.name} ${user.lastName}`}
                       </PrescriptionTitle>

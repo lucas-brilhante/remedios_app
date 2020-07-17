@@ -220,6 +220,7 @@ const MenuCloseButton = styled(TouchableOpacity)`
 `;
 
 const MenuItem = styled(View)`
+  flex: 1;
   padding: 16px;
   border-bottom-width: ${1 * StyleSheet.hairlineWidth}px;
 `;
@@ -233,7 +234,7 @@ const MenuTitleGroup = styled(View)`
 const SingleMenuOption = styled(View)`
   flex-direction: row;
   align-items: center;
-  padding: 16px 16px 16px 0;
+  padding: 16px 0px 16px 0;
 `;
 
 const MenuTitle = styled(Text)`
@@ -246,7 +247,7 @@ const SubMenuItem = styled(View)`
   flex-direction: row;
   padding: 16px;
   padding-left: 24px;
-  align-items: center;
+  padding-right: 0px;
   justify-content: space-between;
 `;
 

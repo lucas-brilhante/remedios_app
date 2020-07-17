@@ -96,49 +96,55 @@ const UserList = () => {
             />
           </SearchBar>
           <ItemsGrid>
-            {filteredUsers.map((user) => (
-              <TouchableOpacity key={user.id}>
-                <Prescription>
-                  <PrescriptionContainer>
-                    <PrescriptionTitleGroup>
-                      <FontAwesome5 name='user-alt' size={20} color='#03071e' />
-                      <PrescriptionTitle>
-                        {`${user.name} ${user.lastName}`}
-                      </PrescriptionTitle>
-                    </PrescriptionTitleGroup>
-                    <PrescriptionAttributesGroup>
-                      <PrescriptionTextGroup>
-                        <PrescriptionBoldText>CPF: </PrescriptionBoldText>
-                        <PrescriptionText>{user.cpf}</PrescriptionText>
-                      </PrescriptionTextGroup>
-                      <PrescriptionTextGroup>
-                        <PrescriptionBoldText>Data nasc: </PrescriptionBoldText>
-                        <PrescriptionText>
-                          {stringToFormatedData(user.birthDate)}
-                        </PrescriptionText>
-                      </PrescriptionTextGroup>
-                      <PrescriptionTextGroup>
-                        <PrescriptionBoldText>Perfil: </PrescriptionBoldText>
-                        <PrescriptionText>
-                          {() => {
-                            if (user.accountType === 'admin')
-                              return 'Administrador';
-                            if (user.accountType === 'doctor') return 'Médico';
-                            return 'Paciente';
-                          }}
-                        </PrescriptionText>
-                      </PrescriptionTextGroup>
-                      <PrescriptionTextGroup>
-                        <PrescriptionBoldText>Tipo: </PrescriptionBoldText>
-                        <PrescriptionText>
-                          {user.isActive === true ? 'Ativo' : 'Não Ativo'}
-                        </PrescriptionText>
-                      </PrescriptionTextGroup>
-                    </PrescriptionAttributesGroup>
-                  </PrescriptionContainer>
-                </Prescription>
-              </TouchableOpacity>
-            ))}
+            {filteredUsers.map((user) => {
+              let userType = 1;
+              if (user.accountType === 'admin') userType = 'Administrador';
+              else if (user.accountType === 'doctor') userType = 'Médico';
+              else userType = 'Paciente';
+
+              return (
+                <TouchableOpacity key={user.id}>
+                  <Prescription>
+                    <PrescriptionContainer>
+                      <PrescriptionTitleGroup>
+                        <FontAwesome5
+                          name='user-alt'
+                          size={20}
+                          color='#03071e'
+                        />
+                        <PrescriptionTitle>
+                          {`${user.name} ${user.lastName}`}
+                        </PrescriptionTitle>
+                      </PrescriptionTitleGroup>
+                      <PrescriptionAttributesGroup>
+                        <PrescriptionTextGroup>
+                          <PrescriptionBoldText>CPF: </PrescriptionBoldText>
+                          <PrescriptionText>{user.cpf}</PrescriptionText>
+                        </PrescriptionTextGroup>
+                        <PrescriptionTextGroup>
+                          <PrescriptionBoldText>
+                            Data nasc:{' '}
+                          </PrescriptionBoldText>
+                          <PrescriptionText>
+                            {stringToFormatedData(user.birthDate)}
+                          </PrescriptionText>
+                        </PrescriptionTextGroup>
+                        <PrescriptionTextGroup>
+                          <PrescriptionBoldText>Perfil: </PrescriptionBoldText>
+                          <PrescriptionText>{userType}</PrescriptionText>
+                        </PrescriptionTextGroup>
+                        <PrescriptionTextGroup>
+                          <PrescriptionBoldText>Tipo: </PrescriptionBoldText>
+                          <PrescriptionText>
+                            {user.isActive === true ? 'Ativo' : 'Não Ativo'}
+                          </PrescriptionText>
+                        </PrescriptionTextGroup>
+                      </PrescriptionAttributesGroup>
+                    </PrescriptionContainer>
+                  </Prescription>
+                </TouchableOpacity>
+              );
+            })}
           </ItemsGrid>
         </List>
       )}
@@ -177,6 +183,7 @@ const PrescriptionAttributesGroup = styled(View)`
 
 const PrescriptionTextGroup = styled(View)`
   flex-direction: row;
+  align-items: center;
 `;
 const PrescriptionBoldText = styled(Text)`
   font-size: 16px;

@@ -1,5 +1,5 @@
-import React from "react";
-import { routes } from "../routes/routes";
+import React from 'react';
+import { routes } from '../routes/routes';
 import {
   Welcome,
   CategoryForm,
@@ -9,7 +9,7 @@ import {
   MedicalPrescriptionForm,
   MedicalPrescriptionsList,
   UsersList,
-} from "../routes";
+} from '../routes';
 
 const RoutesNavigator = ({ route, handleRoute, routeProps }) => {
   switch (route) {

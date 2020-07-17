@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { ActivityIndicator, Alert, View, Keyboard } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { Picker, DatePicker } from "native-base";
-import { remediosApi } from "../services";
-import { routes } from "../routes/routes";
-import { parseCurrencyToDecimal, getNormalizedDate } from "../utils";
+import React, { useState, useEffect } from 'react';
+import { ActivityIndicator, Alert, View, Keyboard } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { Picker, DatePicker } from 'native-base';
+import { remediosApi } from '../services';
+import { routes } from './routes';
+import { parseCurrencyToDecimal, getNormalizedDate } from '../utils';
 import {
   Container,
   Form,
@@ -17,32 +17,32 @@ import {
   KeyboardAvoiding,
   MaskedInput,
   PickerView,
-} from "../components/Form";
+} from '../components/Form';
 
 const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
-  const [drugId, setDrugId] = useState(drug ? drug.id : 0);
-  const [drugName, setDrugName] = useState(drug ? drug.name : "");
+  const drugId = drug ? drug.id : 0;
+  const [drugName, setDrugName] = useState(drug ? drug.name : '');
   const [drugPrice, setDrugPrice] = useState(
-    drug ? drug.price.toFixed(2) : "0.0"
+    drug ? drug.price.toFixed(2) : '0.0'
   );
   const [drugExpirationDate, setDrugExpirationDate] = useState(
-    drug ? new Date(drug.expirationDate.slice(0, 10)) : ""
+    drug ? new Date(drug.expirationDate.slice(0, 10)) : ''
   );
   const [drugCategoryId, setDrugCategoryId] = useState(
     drug ? drug.category.id : -1
   );
   const [categories, setCategories] = useState([]);
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isFetching, setIsFetching] = useState(false);
   const [isLoadingPage, setIsLoadingPage] = useState(true);
 
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const apiResponse = await remediosApi.get("categories");
+        const apiResponse = await remediosApi.get('categories');
         setCategories(apiResponse.data);
       } catch (error) {
-        console.log(error);
+        // console.log(apiError);
       }
       setIsLoadingPage(false);
     };
@@ -50,22 +50,22 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
   }, []);
 
   const createDrug = async () => {
-    const drug = {
+    const newDrug = {
       name: drugName,
       price: parseCurrencyToDecimal(drugPrice),
       expirationDate:
-        drugExpirationDate !== "" ? drugExpirationDate : "1111-11-11",
+        drugExpirationDate !== '' ? drugExpirationDate : '1111-11-11',
       categoryId: drugCategoryId,
     };
 
-    setError("");
+    setErrorMessage('');
     setIsFetching(true);
     try {
-      await remediosApi.post("drugs", { ...drug });
+      await remediosApi.post('drugs', { ...newDrug });
       Alert.alert(
         null,
-        "Medicamento cadastrado com sucesso",
-        [{ text: "Ok", onPress: () => handleRoute(routes.listDrugs) }],
+        'Medicamento cadastrado com sucesso',
+        [{ text: 'Ok', onPress: () => handleRoute(routes.listDrugs) }],
         {
           cancelable: false,
         }
@@ -73,13 +73,13 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
     } catch (error) {
       const errorList = error.response.data.errors;
       const errorKey = Object.keys(errorList)[0];
-      setError(errorList[errorKey][0]);
+      setErrorMessage(errorList[errorKey][0]);
     }
     setIsFetching(false);
   };
 
   const updateDrug = async () => {
-    const drug = {
+    const updatedDrug = {
       id: drugId,
       name: drugName,
       price: parseCurrencyToDecimal(drugPrice),
@@ -87,51 +87,49 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
       categoryId: drugCategoryId,
     };
 
-    console.log("teste", drug);
-
-    setError("");
+    setErrorMessage('');
     setIsFetching(true);
     try {
       await remediosApi.put(`drugs/${drugId}`, {
-        ...drug,
+        ...updatedDrug,
       });
       Alert.alert(
         null,
-        "Medicamento editado com sucesso",
-        [{ text: "Ok", onPress: () => handleRoute(routes.listDrugs) }],
+        'Medicamento editado com sucesso',
+        [{ text: 'Ok', onPress: () => handleRoute(routes.listDrugs) }],
         {
           cancelable: false,
         }
       );
-    } catch (error) {
-      const errorList = error.response.data.errors;
+    } catch (apiError) {
+      const errorList = apiError.response.data.errors;
       const errorKey = Object.keys(errorList)[0];
-      setError(errorList[errorKey][0]);
+      setErrorMessage(errorList[errorKey][0]);
     }
     setIsFetching(false);
   };
 
   return (
-    <KeyboardAvoiding keyboardShouldPersistTaps="handled">
+    <KeyboardAvoiding keyboardShouldPersistTaps='handled'>
       <Container>
         {isLoadingPage ? (
           <View
             style={{
               padding: 150,
-              justifyContent: "center",
-              alignItems: "center",
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <ActivityIndicator size="large" color="#ffba08" />
+            <ActivityIndicator size='large' color='#ffba08' />
           </View>
         ) : (
           <Form>
-            <Title>{drug ? "Editar" : "Cadastrar"} Medicamento</Title>
+            <Title>{drug ? 'Editar' : 'Cadastrar'} Medicamento</Title>
             <Label>Nome do Medicamento</Label>
             <Input value={drugName} onChangeText={setDrugName} />
             <Label>Preço</Label>
             <MaskedInput
-              type={"money"}
+              type='money'
               value={drugPrice}
               onChangeText={setDrugPrice}
             />
@@ -139,20 +137,20 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
             <PickerView>
               <DatePicker
                 defaultDate={
-                  drugExpirationDate !== "" ? drugExpirationDate : null
+                  drugExpirationDate !== '' ? drugExpirationDate : null
                 }
                 minimumDate={new Date()}
-                locale={"pt"}
+                locale='pt'
                 timeZoneOffsetInMinutes={undefined}
                 modalTransparent={false}
-                animationType={"fade"}
-                androidMode={"default"}
+                animationType='fade'
+                androidMode='default'
                 placeHolderText={
-                  drugExpirationDate !== ""
+                  drugExpirationDate !== ''
                     ? getNormalizedDate(drugExpirationDate)
-                    : "Selecione a data."
+                    : 'Selecione a data.'
                 }
-                placeHolderTextStyle={{ color: "#999" }}
+                placeHolderTextStyle={{ color: '#999' }}
                 onDateChange={setDrugExpirationDate}
                 disabled={false}
               />
@@ -160,12 +158,12 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
             <Label>Categoria</Label>
             <PickerView>
               <Picker
-                mode="dropdown"
-                iosIcon={<Feather name="chevron-down" />}
-                placeholder="Selecione a categoria"
-                placeholderStyle={{ fontSize: 16, color: "#999" }}
+                mode='dropdown'
+                iosIcon={<Feather name='chevron-down' />}
+                placeholder='Selecione a categoria'
+                placeholderStyle={{ fontSize: 16, color: '#999' }}
                 selectedValue={drugCategoryId}
-                onValueChange={(itemValue, itemIndex) => {
+                onValueChange={(itemValue) => {
                   Keyboard.dismiss();
                   setDrugCategoryId(itemValue);
                 }}
@@ -179,14 +177,14 @@ const DrugForm = ({ handleRoute, routeProps: drug = null }) => {
                 ))}
               </Picker>
             </PickerView>
-            <ErrorMessage>{error}</ErrorMessage>
+            <ErrorMessage>{errorMessage}</ErrorMessage>
             {isFetching ? (
               <Button>
-                <ActivityIndicator size="small" color="#ffba08" />
+                <ActivityIndicator size='small' color='#ffba08' />
               </Button>
             ) : (
               <Button onPress={drug ? updateDrug : createDrug}>
-                <ButtonText>{drug ? "Editar" : "Cadastrar"}</ButtonText>
+                <ButtonText>{drug ? 'Editar' : 'Cadastrar'}</ButtonText>
               </Button>
             )}
           </Form>

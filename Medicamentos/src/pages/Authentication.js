@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Text,
   View,
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { signIn } from "../store";
-import { firebaseAuth, remediosApi } from "../services";
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../store';
+import { firebaseAuth, remediosApi } from '../services';
 
 import {
   Form,
@@ -21,43 +21,43 @@ import {
   ButtonText,
   ErrorMessage,
   KeyboardAvoiding,
-} from "../components/Form";
+} from '../components/Form';
 
 const Authentication = () => {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [isFetching, setIsFetching] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const logIn = async () => {
     setIsFetching(true);
-    setError("");
+    setErrorMessage('');
     try {
       await firebaseAuth.signInWithEmailAndPassword(login, password);
       try {
         const apiResponse = await remediosApi.get(`users/${login}`);
         dispatch(signIn(apiResponse.data));
-        setLogin("");
-        setPassword("");
-        navigation.navigate("Home");
+        setLogin('');
+        setPassword('');
+        navigation.navigate('Home');
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     } catch (error) {
-      setError("Usuário ou Senha inválido.");
+      setErrorMessage('Usuário ou Senha inválido.');
     }
     setIsFetching(false);
   };
 
   const move = () => {
-    navigation.navigate("Create User");
+    navigation.navigate('Create User');
   };
 
   return (
     <Container>
-      <KeyboardAvoiding keyboardShouldPersistTaps="handled">
+      <KeyboardAvoiding keyboardShouldPersistTaps='handled'>
         <Form>
           <Logo>Medicamentos</Logo>
           <Title>Login</Title>
@@ -65,21 +65,21 @@ const Authentication = () => {
           <Input
             value={login}
             onChangeText={setLogin}
-            autoCapitalize="none"
-            autoCompleteType="username"
+            autoCapitalize='none'
+            autoCompleteType='username'
           />
           <Label>Senha</Label>
           <Input
             value={password}
             onChangeText={setPassword}
-            autoCapitalize="none"
-            textContentType="password"
+            autoCapitalize='none'
+            textContentType='password'
             secureTextEntry
           />
-          <ErrorMessage>{error}</ErrorMessage>
+          <ErrorMessage>{errorMessage}</ErrorMessage>
           {isFetching ? (
             <Button>
-              <ActivityIndicator size="small" color="#ffba08" />
+              <ActivityIndicator size='small' color='#ffba08' />
             </Button>
           ) : (
             <Button onPress={logIn}>
@@ -87,7 +87,7 @@ const Authentication = () => {
             </Button>
           )}
           <LinkContainer>
-            <LinkText>{"Não tem cadastro? "}</LinkText>
+            <LinkText>{'Não tem cadastro? '}</LinkText>
             <TouchableOpacity onPress={move}>
               <AcessLinkText>Clique Aqui!</AcessLinkText>
             </TouchableOpacity>
@@ -108,7 +108,7 @@ const Logo = styled(Text)`
   padding: 16px;
   color: green;
   text-align: center;
-  font-family: "Bangers";
+  font-family: 'Bangers';
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 `;
 

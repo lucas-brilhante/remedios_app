@@ -1,19 +1,19 @@
-import React, { Fragment } from "react";
+import React from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-} from "react-native";
-import styled from "styled-components";
-import { Feather, FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
-import { routes } from "../routes/routes";
-import { useUser } from "../hooks";
-import { firebaseAuth } from "../services";
-import { signOut } from "../store";
+} from 'react-native';
+import styled from 'styled-components';
+import { Feather, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { routes } from '../routes/routes';
+import { useUser } from '../hooks';
+import { firebaseAuth } from '../services';
+import { signOut } from '../store';
 
 const Menu = ({ handleSideDrawer, handleRoute }) => {
   const user = useUser();
@@ -24,9 +24,9 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
     try {
       await firebaseAuth.signOut();
       dispatch(signOut());
-      navigation.navigate("Authentication");
+      navigation.navigate('Authentication');
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -35,15 +35,15 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
       <Header>
         <Title>Menu</Title>
         <MenuCloseButton onPress={() => handleSideDrawer(false)}>
-          <Feather name="arrow-left" size={32} color="black" />
+          <Feather name='arrow-left' size={32} color='black' />
         </MenuCloseButton>
       </Header>
       <ScrollView>
-        {user.accountType !== "patient" && (
-          <Fragment>
+        {user.accountType !== 'patient' && (
+          <>
             <MenuItem>
               <MenuTitleGroup>
-                <FontAwesome name="star" size={20} color="orange" />
+                <FontAwesome name='star' size={20} color='orange' />
                 <MenuTitle>Categorias</MenuTitle>
               </MenuTitleGroup>
               <TouchableOpacity
@@ -55,7 +55,7 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
                   <SubMenuTitleGroup>
                     <SubItemTitle>Adicionar categoria</SubItemTitle>
                   </SubMenuTitleGroup>
-                  <Feather name="chevron-right" size={20} color="black" />
+                  <Feather name='chevron-right' size={20} color='black' />
                 </SubMenuItem>
               </TouchableOpacity>
               <TouchableOpacity
@@ -67,13 +67,13 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
                   <SubMenuTitleGroup>
                     <SubItemTitle>Ver categorias</SubItemTitle>
                   </SubMenuTitleGroup>
-                  <Feather name="chevron-right" size={20} color="black" />
+                  <Feather name='chevron-right' size={20} color='black' />
                 </SubMenuItem>
               </TouchableOpacity>
             </MenuItem>
             <MenuItem>
               <MenuTitleGroup>
-                <FontAwesome5 name="pills" size={20} color="blue" />
+                <FontAwesome5 name='pills' size={20} color='blue' />
                 <MenuTitle>Medicamentos</MenuTitle>
               </MenuTitleGroup>
               <TouchableOpacity
@@ -85,7 +85,7 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
                   <SubMenuTitleGroup>
                     <SubItemTitle>Adicionar medicamento</SubItemTitle>
                   </SubMenuTitleGroup>
-                  <Feather name="chevron-right" size={20} color="black" />
+                  <Feather name='chevron-right' size={20} color='black' />
                 </SubMenuItem>
               </TouchableOpacity>
               <TouchableOpacity
@@ -97,13 +97,13 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
                   <SubMenuTitleGroup>
                     <SubItemTitle>Ver medicamentos</SubItemTitle>
                   </SubMenuTitleGroup>
-                  <Feather name="chevron-right" size={20} color="black" />
+                  <Feather name='chevron-right' size={20} color='black' />
                 </SubMenuItem>
               </TouchableOpacity>
             </MenuItem>
             <MenuItem>
               <MenuTitleGroup>
-                <FontAwesome5 name="scroll" size={20} color="#f7fff7" />
+                <FontAwesome5 name='scroll' size={20} color='#f7fff7' />
                 <MenuTitle>Receitas</MenuTitle>
               </MenuTitleGroup>
               <TouchableOpacity
@@ -115,7 +115,7 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
                   <SubMenuTitleGroup>
                     <SubItemTitle>Receitar Paciente</SubItemTitle>
                   </SubMenuTitleGroup>
-                  <Feather name="chevron-right" size={20} color="black" />
+                  <Feather name='chevron-right' size={20} color='black' />
                 </SubMenuItem>
               </TouchableOpacity>
               <TouchableOpacity
@@ -127,16 +127,16 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
                   <SubMenuTitleGroup>
                     <SubItemTitle>Ver receitas</SubItemTitle>
                   </SubMenuTitleGroup>
-                  <Feather name="chevron-right" size={20} color="black" />
+                  <Feather name='chevron-right' size={20} color='black' />
                 </SubMenuItem>
               </TouchableOpacity>
             </MenuItem>
-          </Fragment>
+          </>
         )}
-        {user.accountType === "admin" && (
+        {user.accountType === 'admin' && (
           <MenuItem>
             <MenuTitleGroup>
-              <FontAwesome5 name="user-alt" size={20} color="#03071e" />
+              <FontAwesome5 name='user-alt' size={20} color='#03071e' />
               <MenuTitle>Usuários</MenuTitle>
             </MenuTitleGroup>
             <TouchableOpacity
@@ -148,15 +148,15 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
                 <SubMenuTitleGroup>
                   <SubItemTitle>Listar usuários</SubItemTitle>
                 </SubMenuTitleGroup>
-                <Feather name="chevron-right" size={20} color="black" />
+                <Feather name='chevron-right' size={20} color='black' />
               </SubMenuItem>
             </TouchableOpacity>
           </MenuItem>
         )}
-        {user.accountType === "patient" && (
+        {user.accountType === 'patient' && (
           <MenuItem>
             <MenuTitleGroup>
-              <FontAwesome5 name="scroll" size={20} color="#f7fff7" />
+              <FontAwesome5 name='scroll' size={20} color='#f7fff7' />
               <MenuTitle>Receitas</MenuTitle>
             </MenuTitleGroup>
             <TouchableOpacity
@@ -168,7 +168,7 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
                 <SubMenuTitleGroup>
                   <SubItemTitle>Ver minhas receitas</SubItemTitle>
                 </SubMenuTitleGroup>
-                <Feather name="chevron-right" size={20} color="black" />
+                <Feather name='chevron-right' size={20} color='black' />
               </SubMenuItem>
             </TouchableOpacity>
           </MenuItem>
@@ -177,10 +177,10 @@ const Menu = ({ handleSideDrawer, handleRoute }) => {
           <MenuItem>
             <SingleMenuOption>
               <MenuTitleGroup>
-                <Feather name="log-out" size={20} color="red" />
+                <Feather name='log-out' size={20} color='red' />
                 <MenuTitle>Sair</MenuTitle>
               </MenuTitleGroup>
-              <Feather name="chevron-right" size={20} color="black" />
+              <Feather name='chevron-right' size={20} color='black' />
             </SingleMenuOption>
           </MenuItem>
         </TouchableOpacity>

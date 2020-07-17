@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { ActivityIndicator, Alert, View, Keyboard } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { Picker } from "native-base";
-import remediosApi from "../services/remediosApi";
-import { routes } from "../routes/routes";
-import { useUser } from "../hooks";
-import { getNumbers } from "../utils";
+import React, { useState, useEffect } from 'react';
+import { ActivityIndicator, Alert, View, Keyboard } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { Picker } from 'native-base';
+import remediosApi from '../services/remediosApi';
+import { routes } from './routes';
+import { useUser } from '../hooks';
+import { getNumbers } from '../utils';
 import {
   Container,
   Form,
@@ -17,17 +17,15 @@ import {
   ErrorMessage,
   KeyboardAvoiding,
   PickerView,
-} from "../components/Form";
+} from '../components/Form';
 
 const MedicalPrescriptionForm = ({
   handleRoute,
   routeProps: prescription = null,
 }) => {
   const user = useUser();
-  const [id, setId] = useState(prescription ? prescription.id : 0);
-  const [doctorId, setDoctorId] = useState(
-    prescription ? prescription.doctor.id : -1
-  );
+  const id = prescription ? prescription.id : 0;
+  const doctorId = prescription ? prescription.doctor.id : -1;
   const [patientId, setPatientId] = useState(
     prescription ? prescription.patient.id : -1
   );
@@ -35,7 +33,7 @@ const MedicalPrescriptionForm = ({
     prescription ? prescription.drug.id : -1
   );
   const [quantity, setQuantity] = useState(
-    prescription ? prescription.quantity.toString() : ""
+    prescription ? prescription.quantity.toString() : ''
   );
 
   const [patients, setPatients] = useState([]);
@@ -43,18 +41,18 @@ const MedicalPrescriptionForm = ({
 
   const [isFetching, setIsFetching] = useState(false);
   const [isLoadingPage, setIsLoadingPage] = useState(true);
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const getPatientsAndDrugs = async () => {
       try {
-        const patientsResponse = await remediosApi.get("patients");
+        const patientsResponse = await remediosApi.get('patients');
         setPatients(patientsResponse.data);
 
-        const drugsResponse = await remediosApi.get("drugs");
+        const drugsResponse = await remediosApi.get('drugs');
         setDrugs(drugsResponse.data);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
       setIsLoadingPage(false);
     };
@@ -62,23 +60,23 @@ const MedicalPrescriptionForm = ({
   }, []);
 
   const createPrescription = async () => {
-    const prescription = {
+    const newPrescription = {
       doctorId: user.id,
       patientId,
       drugId,
-      quantity: quantity !== "" ? Number(quantity) : -1,
+      quantity: quantity !== '' ? Number(quantity) : -1,
     };
 
-    setError("");
+    setErrorMessage('');
     setIsFetching(true);
     try {
-      await remediosApi.post("medicalprescriptions", { ...prescription });
+      await remediosApi.post('medicalprescriptions', { ...newPrescription });
       Alert.alert(
         null,
-        "Receita criada com sucesso",
+        'Receita criada com sucesso',
         [
           {
-            text: "Ok",
+            text: 'Ok',
             onPress: () => handleRoute(routes.listMedicalPrescriptions),
           },
         ],
@@ -89,32 +87,32 @@ const MedicalPrescriptionForm = ({
     } catch (error) {
       const errorList = error.response.data.errors;
       const errorKey = Object.keys(errorList)[0];
-      setError(errorList[errorKey][0]);
+      setErrorMessage(errorList[errorKey][0]);
     }
     setIsFetching(false);
   };
 
   const updatePrescription = async () => {
-    const prescription = {
+    const updatedPrescription = {
       id,
-      doctorId: doctorId,
+      doctorId,
       patientId,
       drugId,
-      quantity: quantity !== "" ? Number(quantity) : -1,
+      quantity: quantity !== '' ? Number(quantity) : -1,
     };
 
-    setError("");
+    setErrorMessage('');
     setIsFetching(true);
     try {
       await remediosApi.put(`medicalprescriptions/${id}`, {
-        ...prescription,
+        ...updatedPrescription,
       });
       Alert.alert(
         null,
-        "Receita editada com sucesso",
+        'Receita editada com sucesso',
         [
           {
-            text: "Ok",
+            text: 'Ok',
             onPress: () => handleRoute(routes.listMedicalPrescriptions),
           },
         ],
@@ -125,36 +123,36 @@ const MedicalPrescriptionForm = ({
     } catch (error) {
       const errorList = error.response.data.errors;
       const errorKey = Object.keys(errorList)[0];
-      setError(errorList[errorKey][0]);
+      setErrorMessage(errorList[errorKey][0]);
     }
     setIsFetching(false);
   };
 
   return (
-    <KeyboardAvoiding keyboardShouldPersistTaps="handled">
+    <KeyboardAvoiding keyboardShouldPersistTaps='handled'>
       <Container>
         {isLoadingPage ? (
           <View
             style={{
               padding: 150,
-              justifyContent: "center",
-              alignItems: "center",
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <ActivityIndicator size="large" color="#ffba08" />
+            <ActivityIndicator size='large' color='#ffba08' />
           </View>
         ) : (
           <Form>
-            <Title>{prescription ? "Editar" : "Cadastrar"} Receita</Title>
+            <Title>{prescription ? 'Editar' : 'Cadastrar'} Receita</Title>
             <Label>Paciente</Label>
             <PickerView>
               <Picker
-                mode="dropdown"
-                iosIcon={<Feather name="chevron-down" />}
-                placeholder="Selecione o paciente."
-                placeholderStyle={{ fontSize: 16, color: "#999" }}
+                mode='dropdown'
+                iosIcon={<Feather name='chevron-down' />}
+                placeholder='Selecione o paciente.'
+                placeholderStyle={{ fontSize: 16, color: '#999' }}
                 selectedValue={patientId}
-                onValueChange={(itemValue, itemIndex) => {
+                onValueChange={(itemValue) => {
                   Keyboard.dismiss();
                   setPatientId(itemValue);
                 }}
@@ -171,12 +169,12 @@ const MedicalPrescriptionForm = ({
             <Label>Medicamento</Label>
             <PickerView>
               <Picker
-                mode="dropdown"
-                iosIcon={<Feather name="chevron-down" />}
-                placeholder="Selecione o medicamento."
-                placeholderStyle={{ fontSize: 16, color: "#999" }}
+                mode='dropdown'
+                iosIcon={<Feather name='chevron-down' />}
+                placeholder='Selecione o medicamento.'
+                placeholderStyle={{ fontSize: 16, color: '#999' }}
                 selectedValue={drugId}
-                onValueChange={(itemValue, itemIndex) => {
+                onValueChange={(itemValue) => {
                   Keyboard.dismiss();
                   setDrugId(itemValue);
                 }}
@@ -194,18 +192,18 @@ const MedicalPrescriptionForm = ({
             <Input
               value={quantity}
               onChangeText={(text) => setQuantity(getNumbers(text))}
-              keyboardType="number-pad"
+              keyboardType='number-pad'
             />
-            <ErrorMessage>{error}</ErrorMessage>
+            <ErrorMessage>{errorMessage}</ErrorMessage>
             {isFetching ? (
               <Button>
-                <ActivityIndicator size="small" color="#ffba08" />
+                <ActivityIndicator size='small' color='#ffba08' />
               </Button>
             ) : (
               <Button
                 onPress={prescription ? updatePrescription : createPrescription}
               >
-                <ButtonText>{prescription ? "Editar" : "Cadastrar"}</ButtonText>
+                <ButtonText>{prescription ? 'Editar' : 'Cadastrar'}</ButtonText>
               </Button>
             )}
           </Form>

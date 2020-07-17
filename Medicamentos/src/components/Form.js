@@ -1,7 +1,7 @@
-import { Text, View, TextInput, TouchableOpacity } from "react-native";
-import styled from "styled-components";
-import { TextInputMask } from "react-native-masked-text";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import styled from 'styled-components';
+import { TextInputMask } from 'react-native-masked-text';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export const KeyboardAvoiding = styled(KeyboardAwareScrollView).attrs({
   extraScrollHeight: 200,
@@ -21,7 +21,7 @@ export const Form = styled(View)`
 export const Title = styled(Text)`
   font-size: 24px;
   margin-bottom: 20px;
-  font-family: "Abel";
+  font-family: 'Abel';
 `;
 
 export const Label = styled(Text)`

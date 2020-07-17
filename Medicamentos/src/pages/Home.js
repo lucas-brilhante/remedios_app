@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { View, SafeAreaView, StatusBar } from "react-native";
-import styled from "styled-components";
-import MenuDrawer from "react-native-side-drawer";
-import { routes } from "../routes/routes";
-import { Header, Menu, RoutesNavigator } from "../components";
+import React, { useState } from 'react';
+import { View, SafeAreaView, StatusBar } from 'react-native';
+import styled from 'styled-components';
+import MenuDrawer from 'react-native-side-drawer';
+import { routes } from '../routes/routes';
+import { Header, Menu, RoutesNavigator } from '../components';
 
 const Home = () => {
   const [showSideDrawer, setShowSideDrawer] = useState(false);
@@ -14,16 +14,16 @@ const Home = () => {
     setShowSideDrawer(bool);
   };
 
-  const handleRoute = (route, props) => {
+  const handleRoute = (selectedRoute, props) => {
     setShowSideDrawer(false);
     setRouteProps(props);
-    setRoute(route);
+    setRoute(selectedRoute);
   };
 
   return (
     <Container>
-      <StatusBar backgroundColor="#52b788" />
-      <View style={{ height: 50, backgroundColor: "#52b788" }} />
+      <StatusBar backgroundColor='#52b788' />
+      <View style={{ height: 50, backgroundColor: '#52b788' }} />
       <MenuDrawer
         open={showSideDrawer}
         drawerContent={
@@ -31,11 +31,11 @@ const Home = () => {
         }
         drawerPercentage={85}
         animationTime={250}
-        overlay={true}
+        overlay
         opacity={0.5}
       >
         <Header
-          color={"#52b788"}
+          color='#52b788'
           handleRoute={handleRoute}
           handleSideDrawer={handleSideDrawer}
         />

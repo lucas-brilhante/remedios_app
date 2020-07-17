@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -12,12 +6,12 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
-} from "react-native";
-import styled from "styled-components";
-import { Feather, FontAwesome } from "@expo/vector-icons";
-import { routes } from "../routes/routes";
-import { useUser } from "../hooks";
-import { remediosApi } from "../services";
+} from 'react-native';
+import styled from 'styled-components';
+import { Feather, FontAwesome } from '@expo/vector-icons';
+import { routes } from './routes';
+import { useUser } from '../hooks';
+import { remediosApi } from '../services';
 import {
   Container,
   List,
@@ -27,7 +21,7 @@ import {
   ItemsGrid,
   DeleteButton,
   EditButton,
-} from "../components/ListView";
+} from '../components/ListView';
 
 const CategoriesList = ({ handleRoute }) => {
   const user = useUser();
@@ -39,7 +33,7 @@ const CategoriesList = ({ handleRoute }) => {
   const searchCategory = (text) => {
     const normalizedText = text.trim().toUpperCase();
     const filter = [];
-    categories.map((category) => {
+    categories.forEach((category) => {
       const normalizedTitle = category.title.trim().toUpperCase();
       if (normalizedTitle.includes(normalizedText)) filter.push(category);
     });
@@ -48,12 +42,12 @@ const CategoriesList = ({ handleRoute }) => {
 
   const getCategories = useCallback(async () => {
     try {
-      const apiResponse = await remediosApi.get("categories");
+      const apiResponse = await remediosApi.get('categories');
       setCategories(apiResponse.data);
       setFilteredCategories(apiResponse.data);
       setIsFetching(false);
-    } catch (error) {
-      console.log(error);
+    } catch (apiError) {
+      // console.log(apiError);
     }
   }, []);
 
@@ -67,12 +61,12 @@ const CategoriesList = ({ handleRoute }) => {
       await remediosApi.delete(`categories/${category.id}`);
       getCategories();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (error.response.status === 500) {
         setIsFetching(false);
         Alert.alert(
-          "Erro ao remover",
-          "Existe um produto cadastrado nessa categoria."
+          'Erro ao remover',
+          'Existe um produto cadastrado nessa categoria.'
         );
       }
     }
@@ -84,12 +78,12 @@ const CategoriesList = ({ handleRoute }) => {
       `Tem certeza que deseja deletar a categoria ${category.title}?`,
       [
         {
-          text: "Sim",
+          text: 'Sim',
           onPress: () => {
             deleteCategory(category);
           },
         },
-        { text: "Não", onPress: () => {} },
+        { text: 'Não', onPress: () => {} },
       ],
       {
         cancelable: false,
@@ -104,7 +98,7 @@ const CategoriesList = ({ handleRoute }) => {
   return (
     <Container>
       {isFetching ? (
-        <ActivityIndicator size="large" color="#ffba08" />
+        <ActivityIndicator size='large' color='#ffba08' />
       ) : (
         <List>
           <Title>Lista de Categorias</Title>
@@ -114,11 +108,11 @@ const CategoriesList = ({ handleRoute }) => {
                 searchBarRef.current.focus();
               }}
             >
-              <Feather name="search" size={20} color="black" />
+              <Feather name='search' size={20} color='black' />
             </TouchableOpacity>
             <SearchInput
               ref={searchBarRef}
-              placeholder="Digite o nome da categoria."
+              placeholder='Digite o nome da categoria.'
               onChangeText={searchCategory}
             />
           </SearchBar>
@@ -127,16 +121,16 @@ const CategoriesList = ({ handleRoute }) => {
               <TouchableOpacity key={category.id}>
                 <Category>
                   <CategoryInfo>
-                    <FontAwesome name="star" size={20} color="orange" />
+                    <FontAwesome name='star' size={20} color='orange' />
                     <CategoryTitle>{category.title}</CategoryTitle>
                   </CategoryInfo>
-                  {user.accountType === "admin" && (
-                    <Fragment>
+                  {user.accountType === 'admin' && (
+                    <>
                       <EditButton onPress={() => editCategory(category)} />
                       <DeleteButton
                         onPress={() => deleteConfirmation(category)}
                       />
-                    </Fragment>
+                    </>
                   )}
                 </Category>
               </TouchableOpacity>

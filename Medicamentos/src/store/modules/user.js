@@ -1,8 +1,8 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { createReducer } from '@reduxjs/toolkit';
 
 // Actions
-const SET_USER = "@medicamentos/user/SET_USER";
-const LOG_OUT = "@medicamentos/user/LOG_OUT";
+const SET_USER = '@medicamentos/user/SET_USER';
+const LOG_OUT = '@medicamentos/user/LOG_OUT';
 
 // Reducer
 const initialState = {
@@ -23,7 +23,7 @@ const initialState = {
 
 export default createReducer(initialState, {
   [SET_USER]: (state, action) => action.payload,
-  [LOG_OUT]: (state, action) => initialState,
+  [LOG_OUT]: () => initialState,
 });
 
 // Actions Creator

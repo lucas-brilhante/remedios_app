@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -12,13 +6,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
-} from "react-native";
-import styled from "styled-components";
-import { Feather, FontAwesome5 } from "@expo/vector-icons";
-import { remediosApi } from "../services";
-import { routes } from "../routes/routes";
-import { useUser } from "../hooks";
-import { stringToFormatedData, decimalToBrl } from "../utils";
+} from 'react-native';
+import styled from 'styled-components';
+import { Feather, FontAwesome5 } from '@expo/vector-icons';
+import { remediosApi } from '../services';
+import { routes } from './routes';
+import { useUser } from '../hooks';
+import { stringToFormatedData, decimalToBrl } from '../utils';
 
 import {
   Container,
@@ -29,7 +23,7 @@ import {
   ItemsGrid,
   DeleteButton,
   EditButton,
-} from "../components/ListView";
+} from '../components/ListView';
 
 const DrugList = ({ handleRoute }) => {
   const user = useUser();
@@ -41,7 +35,7 @@ const DrugList = ({ handleRoute }) => {
   const searchDrug = (text) => {
     const normalizedText = text.trim().toUpperCase();
     const filter = [];
-    drugs.map((drug) => {
+    drugs.forEach((drug) => {
       const normalizedTitle = drug.name.trim().toUpperCase();
       if (normalizedTitle.includes(normalizedText)) filter.push(drug);
     });
@@ -50,12 +44,12 @@ const DrugList = ({ handleRoute }) => {
 
   const getDrugs = useCallback(async () => {
     try {
-      const apiResponse = await remediosApi.get("drugs");
+      const apiResponse = await remediosApi.get('drugs');
       setDrugs(apiResponse.data);
       setFilteredDrugs(apiResponse.data);
       setIsFetching(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }, []);
 
@@ -69,12 +63,12 @@ const DrugList = ({ handleRoute }) => {
       await remediosApi.delete(`drugs/${drug.id}`);
       getDrugs();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (error.response.status === 500) {
         setIsFetching(false);
         Alert.alert(
-          "Erro ao remover",
-          "Existe uma receita que utiliza esse medicamento."
+          'Erro ao remover',
+          'Existe uma receita que utiliza esse medicamento.'
         );
       }
     }
@@ -86,12 +80,12 @@ const DrugList = ({ handleRoute }) => {
       `Tem certeza que deseja deletar o medicamento ${drug.name}?`,
       [
         {
-          text: "Sim",
+          text: 'Sim',
           onPress: () => {
             deleteDrug(drug);
           },
         },
-        { text: "Não", onPress: () => {} },
+        { text: 'Não', onPress: () => {} },
       ],
       {
         cancelable: false,
@@ -106,7 +100,7 @@ const DrugList = ({ handleRoute }) => {
   return (
     <Container>
       {isFetching ? (
-        <ActivityIndicator size="large" color="#ffba08" />
+        <ActivityIndicator size='large' color='#ffba08' />
       ) : (
         <List>
           <Title>Lista de Medicamentos</Title>
@@ -116,11 +110,11 @@ const DrugList = ({ handleRoute }) => {
                 searchBarRef.current.focus();
               }}
             >
-              <Feather name="search" size={20} color="black" />
+              <Feather name='search' size={20} color='black' />
             </TouchableOpacity>
             <SearchInput
               ref={searchBarRef}
-              placeholder="Digite o nome do medicamento."
+              placeholder='Digite o nome do medicamento.'
               onChangeText={searchDrug}
             />
           </SearchBar>
@@ -130,7 +124,7 @@ const DrugList = ({ handleRoute }) => {
                 <Drug>
                   <DrugContainer>
                     <DrugTitleGroup>
-                      <FontAwesome5 name="pills" size={20} color="blue" />
+                      <FontAwesome5 name='pills' size={20} color='blue' />
                       <DrugTitle>{drug.name}</DrugTitle>
                     </DrugTitleGroup>
                     <DrugAttributesGroup>
@@ -150,11 +144,11 @@ const DrugList = ({ handleRoute }) => {
                       </DrugTextGroup>
                     </DrugAttributesGroup>
                   </DrugContainer>
-                  {user.accountType === "admin" && (
-                    <Fragment>
+                  {user.accountType === 'admin' && (
+                    <>
                       <EditButton onPress={() => editDrug(drug)} />
                       <DeleteButton onPress={() => deleteConfirmation(drug)} />
-                    </Fragment>
+                    </>
                   )}
                 </Drug>
               </TouchableOpacity>

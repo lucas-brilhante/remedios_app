@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const ip = "192.168.2.101";
+const ip = '192.168.2.101';
 
 const api = axios.create({
   baseURL: `http://${ip}:5000/api`,

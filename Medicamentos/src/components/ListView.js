@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   ScrollView,
   TextInput,
-} from "react-native";
-import styled from "styled-components";
-import { Feather } from "@expo/vector-icons";
+} from 'react-native';
+import styled from 'styled-components';
+import { Feather } from '@expo/vector-icons';
 
 export const Container = styled(View)`
   flex: 1;
@@ -25,7 +25,7 @@ export const List = styled(View)`
 export const Title = styled(Text)`
   font-size: 24px;
   margin-bottom: 20px;
-  font-family: "Abel";
+  font-family: 'Abel';
   text-align: left;
 `;
 
@@ -50,7 +50,7 @@ export const ItemsGrid = styled(ScrollView)``;
 export const DeleteButton = ({ onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={{ padding: 16 }}>
-      <Feather name="trash-2" size={20} color="red" />
+      <Feather name='trash-2' size={20} color='red' />
     </TouchableOpacity>
   );
 };
@@ -58,7 +58,7 @@ export const DeleteButton = ({ onPress }) => {
 export const EditButton = ({ onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={{ padding: 16 }}>
-      <Feather name="edit" size={20} color="orange" />
+      <Feather name='edit' size={20} color='orange' />
     </TouchableOpacity>
   );
 };

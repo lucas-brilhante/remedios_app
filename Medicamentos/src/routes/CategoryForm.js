@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { ActivityIndicator, Alert } from "react-native";
-import { remediosApi } from "../services";
-import { routes } from "../routes/routes";
+import React, { useState } from 'react';
+import { ActivityIndicator, Alert } from 'react-native';
+import { remediosApi } from '../services';
+import { routes } from './routes';
 import {
   Container,
   Form,
@@ -12,28 +12,28 @@ import {
   ButtonText,
   ErrorMessage,
   KeyboardAvoiding,
-} from "../components/Form";
+} from '../components/Form';
 
 const CategoryForm = ({ handleRoute, routeProps: category = null }) => {
-  const [categoryId, setCategoryId] = useState(category ? category.id : 0);
+  const categoryId = category ? category.id : 0;
   const [categoryTitle, setCategoryTitle] = useState(
-    category ? category.title : ""
+    category ? category.title : ''
   );
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isFetching, setIsFetching] = useState(false);
 
   const createCategory = async () => {
-    const category = {
+    const newCategory = {
       title: categoryTitle,
     };
-    setError("");
+    setErrorMessage('');
     setIsFetching(true);
     try {
-      await remediosApi.post("categories", { ...category });
+      await remediosApi.post('categories', { ...newCategory });
       Alert.alert(
         null,
-        "Categoria cadastrada com sucesso",
-        [{ text: "Ok", onPress: () => handleRoute(routes.listCategories) }],
+        'Categoria cadastrada com sucesso',
+        [{ text: 'Ok', onPress: () => handleRoute(routes.listCategories) }],
         {
           cancelable: false,
         }
@@ -41,26 +41,26 @@ const CategoryForm = ({ handleRoute, routeProps: category = null }) => {
     } catch (error) {
       const errorList = error.response.data.errors;
       const errorKey = Object.keys(errorList)[0];
-      setError(errorList[errorKey][0]);
+      setErrorMessage(errorList[errorKey][0]);
     }
     setIsFetching(false);
   };
 
   const updateCategory = async () => {
-    const category = {
+    const updatedCategory = {
       id: categoryId,
       title: categoryTitle,
     };
-    setError("");
+    setErrorMessage('');
     setIsFetching(true);
     try {
-      const apiResponse = await remediosApi.put(`categories/${categoryId}`, {
-        ...category,
+      await remediosApi.put(`categories/${categoryId}`, {
+        ...updatedCategory,
       });
       Alert.alert(
         null,
-        "Categoria editada com sucesso",
-        [{ text: "Ok", onPress: () => handleRoute(routes.listCategories) }],
+        'Categoria editada com sucesso',
+        [{ text: 'Ok', onPress: () => handleRoute(routes.listCategories) }],
         {
           cancelable: false,
         }
@@ -68,7 +68,7 @@ const CategoryForm = ({ handleRoute, routeProps: category = null }) => {
     } catch (error) {
       const errorList = error.response.data.errors;
       const errorKey = Object.keys(errorList)[0];
-      setError(errorList[errorKey][0]);
+      setErrorMessage(errorList[errorKey][0]);
     }
     setIsFetching(false);
   };
@@ -77,17 +77,17 @@ const CategoryForm = ({ handleRoute, routeProps: category = null }) => {
     <KeyboardAvoiding>
       <Container>
         <Form>
-          <Title>{category ? "Editar" : "Cadastrar"} Categoria</Title>
+          <Title>{category ? 'Editar' : 'Cadastrar'} Categoria</Title>
           <Label>Nome da Categoria</Label>
           <Input value={categoryTitle} onChangeText={setCategoryTitle} />
-          <ErrorMessage>{error}</ErrorMessage>
+          <ErrorMessage>{errorMessage}</ErrorMessage>
           {isFetching ? (
             <Button>
-              <ActivityIndicator size="small" color="#ffba08" />
+              <ActivityIndicator size='small' color='#ffba08' />
             </Button>
           ) : (
             <Button onPress={category ? updateCategory : createCategory}>
-              <ButtonText>{category ? "Editar" : "Cadastrar"}</ButtonText>
+              <ButtonText>{category ? 'Editar' : 'Cadastrar'}</ButtonText>
             </Button>
           )}
         </Form>

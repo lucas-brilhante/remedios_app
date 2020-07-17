@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -12,13 +6,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
-} from "react-native";
-import styled from "styled-components";
-import { Feather, FontAwesome5 } from "@expo/vector-icons";
-import { routes } from "../routes/routes";
-import { useUser } from "../hooks";
-import { stringToFormatedData, decimalToBrl } from "../utils";
-import { remediosApi } from "../services";
+} from 'react-native';
+import styled from 'styled-components';
+import { Feather, FontAwesome5 } from '@expo/vector-icons';
+import { routes } from './routes';
+import { useUser } from '../hooks';
+import { stringToFormatedData, decimalToBrl } from '../utils';
+import { remediosApi } from '../services';
 
 import {
   Container,
@@ -29,7 +23,7 @@ import {
   ItemsGrid,
   DeleteButton,
   EditButton,
-} from "../components/ListView";
+} from '../components/ListView';
 
 const MedicalPrescriptionsList = ({ handleRoute }) => {
   const user = useUser();
@@ -41,7 +35,7 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
   const searchPrescription = (text) => {
     const normalizedText = text.trim().toUpperCase();
     const filter = [];
-    prescriptions.map((prescription) => {
+    prescriptions.forEach((prescription) => {
       const normalizedDrugName = prescription.drug.name.trim().toUpperCase();
       const normalizedPatientName = prescription.patient.name
         .trim()
@@ -58,9 +52,9 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
   const getPrescriptions = useCallback(async () => {
     try {
       let apiResponse;
-      if (user.accountType === "admin")
-        apiResponse = await remediosApi.get("medicalprescriptions");
-      else if (user.accountType === "doctor")
+      if (user.accountType === 'admin')
+        apiResponse = await remediosApi.get('medicalprescriptions');
+      else if (user.accountType === 'doctor')
         apiResponse = await remediosApi.get(`doctorsprescriptions/${user.id}`);
       else
         apiResponse = await remediosApi.get(`patientsprescriptions/${user.id}`);
@@ -69,7 +63,7 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
       setFilteredPrescriptions(apiResponse.data);
       setIsFetching(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setIsFetching(false);
     }
   }, []);
@@ -84,7 +78,7 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
       await remediosApi.delete(`medicalprescriptions/${prescription.id}`);
       getPrescriptions();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -94,12 +88,12 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
       `Tem certeza que deseja deletar a receita do paciente ${prescription.patient.name}?`,
       [
         {
-          text: "Sim",
+          text: 'Sim',
           onPress: () => {
             deletePrescription(prescription);
           },
         },
-        { text: "Não", onPress: () => {} },
+        { text: 'Não', onPress: () => {} },
       ],
       {
         cancelable: false,
@@ -114,7 +108,7 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
   return (
     <Container>
       {isFetching ? (
-        <ActivityIndicator size="large" color="#ffba08" />
+        <ActivityIndicator size='large' color='#ffba08' />
       ) : (
         <List>
           <Title>Lista de Receitas</Title>
@@ -124,11 +118,11 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
                 searchBarRef.current.focus();
               }}
             >
-              <Feather name="search" size={20} color="black" />
+              <Feather name='search' size={20} color='black' />
             </TouchableOpacity>
             <SearchInput
               ref={searchBarRef}
-              placeholder="Digite o nome do medicamento ou paciente."
+              placeholder='Digite o nome do medicamento ou paciente.'
               onChangeText={searchPrescription}
             />
           </SearchBar>
@@ -138,7 +132,7 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
                 <Prescription>
                   <PrescriptionContainer>
                     <PrescriptionTitleGroup>
-                      <FontAwesome5 name="scroll" size={20} color="#f7fff7" />
+                      <FontAwesome5 name='scroll' size={20} color='#f7fff7' />
                       <PrescriptionTitle>
                         {prescription.drug.name}
                       </PrescriptionTitle>
@@ -152,7 +146,7 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
                       </PrescriptionTextGroup>
                       <PrescriptionTextGroup>
                         <PrescriptionBoldText>
-                          Quantidade:{" "}
+                          Quantidade:{' '}
                         </PrescriptionBoldText>
                         <PrescriptionText>
                           {prescription.quantity}
@@ -160,7 +154,7 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
                       </PrescriptionTextGroup>
                       <PrescriptionTextGroup>
                         <PrescriptionBoldText>
-                          Preço Total:{" "}
+                          Preço Total:{' '}
                         </PrescriptionBoldText>
                         <PrescriptionText>
                           {decimalToBrl(prescription.totalPrice)}
@@ -174,20 +168,20 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
                           )}
                         </PrescriptionText>
                       </PrescriptionTextGroup>
-                      {user.accountType !== "patient" && (
+                      {user.accountType !== 'patient' && (
                         <PrescriptionTextGroup>
                           <PrescriptionBoldText>
-                            Paciente:{" "}
+                            Paciente:{' '}
                           </PrescriptionBoldText>
                           <PrescriptionText>
                             {`${prescription.patient.name} ${prescription.patient.lastName}`}
                           </PrescriptionText>
                         </PrescriptionTextGroup>
                       )}
-                      {user.accountType !== "doctor" && (
+                      {user.accountType !== 'doctor' && (
                         <PrescriptionTextGroup>
                           <PrescriptionBoldText>
-                            Receitado por:{" "}
+                            Receitado por:{' '}
                           </PrescriptionBoldText>
                           <PrescriptionText>
                             {`${prescription.doctor.name} ${prescription.doctor.lastName}`}
@@ -196,15 +190,15 @@ const MedicalPrescriptionsList = ({ handleRoute }) => {
                       )}
                     </PrescriptionAttributesGroup>
                   </PrescriptionContainer>
-                  {user.accountType === "admin" && (
-                    <Fragment>
+                  {user.accountType === 'admin' && (
+                    <>
                       <EditButton
                         onPress={() => editPrescription(prescription)}
                       />
                       <DeleteButton
                         onPress={() => deleteConfirmation(prescription)}
                       />
-                    </Fragment>
+                    </>
                   )}
                 </Prescription>
               </TouchableOpacity>

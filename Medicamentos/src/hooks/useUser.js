@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const useUser = () => useSelector((store) => store.userReducer);
 

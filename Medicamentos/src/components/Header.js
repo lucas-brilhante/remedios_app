@@ -1,9 +1,9 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import styled from "styled-components";
-import { Feather } from "@expo/vector-icons";
-import { useUser } from "../hooks";
-import { routes } from "../routes/routes";
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import styled from 'styled-components';
+import { Feather } from '@expo/vector-icons';
+import { useUser } from '../hooks';
+import { routes } from '../routes/routes';
 
 const Header = ({ color, handleSideDrawer, handleRoute }) => {
   const user = useUser();
@@ -12,7 +12,7 @@ const Header = ({ color, handleSideDrawer, handleRoute }) => {
       <Content>
         <MenuButton>
           <TouchableOpacity onPress={() => handleSideDrawer((state) => !state)}>
-            <Feather name="menu" size={32} color="black" />
+            <Feather name='menu' size={32} color='black' />
           </TouchableOpacity>
         </MenuButton>
         <MenuContainer>
@@ -33,7 +33,7 @@ const Header = ({ color, handleSideDrawer, handleRoute }) => {
 
 const Container = styled(View)`
   height: 64px;
-  background-color: ${({ color }) => (color ? color : "black")};
+  background-color: ${({ color }) => color || 'black'};
   border-bottom-width: ${3 * StyleSheet.hairlineWidth}px;
   border-color: #000;
 `;
@@ -55,7 +55,7 @@ const Logo = styled(Text)`
   font-size: 32px;
   color: green;
   text-align: center;
-  font-family: "Bangers";
+  font-family: 'Bangers';
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 `;
 

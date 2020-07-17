@@ -1,1 +1,1 @@
-export default (text) => text.replace(/(\/|\.|-)/g, "");
+export default (text) => text.replace(/(\/|\.|-)/g, '');

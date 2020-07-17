@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
-} from "react-native";
-import styled from "styled-components";
-import { Feather, FontAwesome5 } from "@expo/vector-icons";
-import { remediosApi } from "../services";
-import { useUser } from "../hooks";
+} from 'react-native';
+import styled from 'styled-components';
+import { Feather, FontAwesome5 } from '@expo/vector-icons';
+import { remediosApi } from '../services';
 import {
   stringToFormatedData,
   removeSpecialCharacters,
   getNumbers,
-} from "../utils";
+} from '../utils';
 
 import {
   Container,
@@ -23,12 +22,9 @@ import {
   SearchBar,
   SearchInput,
   ItemsGrid,
-  DeleteButton,
-  EditButton,
-} from "../components/ListView";
+} from '../components/ListView';
 
-const UserList = ({ handleRoute }) => {
-  const user = useUser();
+const UserList = () => {
   const searchBarRef = useRef(null);
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -37,21 +33,20 @@ const UserList = ({ handleRoute }) => {
   const searchUser = (text) => {
     const normalizedText = removeSpecialCharacters(text.trim().toUpperCase());
     const filter = [];
-    users.map((user) => {
+    users.forEach((user) => {
       const name = `${user.name} ${user.lastName}`;
       const normalizedName = removeSpecialCharacters(name.trim().toUpperCase());
       const normalizedBirthDate = getNumbers(
         stringToFormatedData(user.birthDate)
       );
       const normalizedCpf = getNumbers(user.cpf);
-      const profile =
-        user.accountType === "admin"
-          ? "Administrador"
-          : user.accountType === "doctor"
-          ? "Médico"
-          : "Paciente";
+      let profile = '';
+      if (user.accountType === 'admin') profile = 'Administrador';
+      else if (user.accountType === 'doctor') profile = 'Médico';
+      else profile = 'Paciente';
+
       const normalizedProfile = profile.trim().toUpperCase();
-      const isActive = user.isActive ? "Ativo" : "Inativo";
+      const isActive = user.isActive ? 'Ativo' : 'Inativo';
       const normalizedIsActive = isActive.trim().toUpperCase();
       if (
         normalizedName.includes(normalizedText) ||
@@ -68,12 +63,12 @@ const UserList = ({ handleRoute }) => {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const apiResponse = await remediosApi.get("users");
+        const apiResponse = await remediosApi.get('users');
         setUsers(apiResponse.data);
         setFilteredUsers(apiResponse.data);
         setIsFetching(false);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     getUsers();
@@ -82,7 +77,7 @@ const UserList = ({ handleRoute }) => {
   return (
     <Container>
       {isFetching ? (
-        <ActivityIndicator size="large" color="#ffba08" />
+        <ActivityIndicator size='large' color='#ffba08' />
       ) : (
         <List>
           <Title>Lista de Usuários</Title>
@@ -92,11 +87,11 @@ const UserList = ({ handleRoute }) => {
                 searchBarRef.current.focus();
               }}
             >
-              <Feather name="search" size={20} color="black" />
+              <Feather name='search' size={20} color='black' />
             </TouchableOpacity>
             <SearchInput
               ref={searchBarRef}
-              placeholder="Digite o Nome/CPF/etc..."
+              placeholder='Digite o Nome/CPF/etc...'
               onChangeText={searchUser}
             />
           </SearchBar>
@@ -106,7 +101,7 @@ const UserList = ({ handleRoute }) => {
                 <Prescription>
                   <PrescriptionContainer>
                     <PrescriptionTitleGroup>
-                      <FontAwesome5 name="user-alt" size={20} color="#03071e" />
+                      <FontAwesome5 name='user-alt' size={20} color='#03071e' />
                       <PrescriptionTitle>
                         {`${user.name} ${user.lastName}`}
                       </PrescriptionTitle>
@@ -125,17 +120,18 @@ const UserList = ({ handleRoute }) => {
                       <PrescriptionTextGroup>
                         <PrescriptionBoldText>Perfil: </PrescriptionBoldText>
                         <PrescriptionText>
-                          {user.accountType === "admin"
-                            ? "Administrador"
-                            : user.accountType === "doctor"
-                            ? "Médico"
-                            : "Paciente"}
+                          {() => {
+                            if (user.accountType === 'admin')
+                              return 'Administrador';
+                            if (user.accountType === 'doctor') return 'Médico';
+                            return 'Paciente';
+                          }}
                         </PrescriptionText>
                       </PrescriptionTextGroup>
                       <PrescriptionTextGroup>
                         <PrescriptionBoldText>Tipo: </PrescriptionBoldText>
                         <PrescriptionText>
-                          {user.isActive === true ? "Ativo" : "Não Ativo"}
+                          {user.isActive === true ? 'Ativo' : 'Não Ativo'}
                         </PrescriptionText>
                       </PrescriptionTextGroup>
                     </PrescriptionAttributesGroup>
